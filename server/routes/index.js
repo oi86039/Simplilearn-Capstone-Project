@@ -3,7 +3,7 @@ const catalogueDAO = require("../controllers/catalogueDAO");
 //const usersDAO = require("../controllers/usersDAO");
 const router = express.Router();
 
-router.get("/testConnection", catalogueDAO.testConnection);
+router.get("/testConnection", catalogueDAO.viewCatalogue);
 //router.post("/", postController.store);
 
 module.exports = router;

@@ -36,17 +36,17 @@ var testConnection=(req,res)=> {
 
 // }
 
-// viewCatalogue(limit) {
-//     console.log("Connected to db.")
-//     //Define schema for collection
-//     var Product = this.productSchema;
-//     //Find model in db
-//     Product.find({}, (err, result) => {
-//         if (err) console.log("Error, could not retrieve catalogue.....");
-//         else console.log(JSON.stringify(result, null, 2));
-//         this.db.close();
-//     }).limit(limit);
-// }
+var viewCatalogue = (req,res) => {
+        //Define schema for collection
+    var Product = require("../models/item.model");
+    //Find model in db
+    Product.find({}, (err, result) => {
+        if (err)
+            res.json("Error, could not retrieve catalogue.....");
+        else
+            res.json({"_id":"results","content": result});
+    });
+}
 
 // findProductsByName(itemName) {
 //     console.log("Connected to db.")
@@ -72,7 +72,7 @@ var testConnection=(req,res)=> {
 //     })
 // }
 
-module.exports={testConnection};
+module.exports={testConnection,viewCatalogue};
 
 // //View catalogue test
 // let catalogue = new catalogueDAO();

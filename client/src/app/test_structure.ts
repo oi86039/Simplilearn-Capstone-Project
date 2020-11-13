@@ -6,8 +6,8 @@
 //export class Admin{}
 export class testConnection{
   public _id:string;
-  public content:string;
-  constructor(_id:string,content:string){
+  public content:any;
+  constructor(_id:string,content:any){
     this._id=_id;
     this.content=content;
   }
