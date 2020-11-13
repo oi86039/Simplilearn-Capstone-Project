@@ -3,11 +3,25 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+var cors = require("cors");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var url = "mongodb://localhost:27017/testing"
+
 var app = express();
+
+//Middlware mdoules setup 
+app.use(bodyParser.json()); //convert to json data. post method  
+app.use(bodyParser.urlencoded({extended:true}));   //Enable post 
+app.use(cors()); //Enable Cors api functionality 
+
+//Connect to DB 
+mongoose.connect(url,{useNewUrlParser:true,useUnifiedTopology: true});
+mongoose.connection;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const catalogueDAO = require("../controllers/catalogueDAO");
+//const usersDAO = require("../controllers/usersDAO");
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get("/testConnection", catalogueDAO.testConnection);
+//router.post("/", postController.store);
 
 module.exports = router;

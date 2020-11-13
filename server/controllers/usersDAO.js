@@ -9,10 +9,12 @@ class usersDAO {
         this.db = this.mongoose.connection;
         this.mongoose.Promise = global.Promise;
         this.db.on("error", (err) => console.log("Error! Failed to connect to database....." + err));
-        //db.once("open",createProduct);
+
+        //Global var schema for user
+        this.userSchema = require("../models/user.model");
+        this.adminSchema = require("../models/admin.model");
     }
-    //#region Helpers
-    
+
     //Test if connection worked
     testConnection() {
         console.log("Connected to db. Exitting.....")
@@ -23,7 +25,7 @@ class usersDAO {
     createUserAccount(userName, password, email, phone) {
         console.log("Connected to db.")
         //Define schema for collection
-        var User = this.defineUserSchema();
+        var User = this.userSchema;
         //Check if username is unique.
         User.findOne({ "userName": userName }, (err, result) => {
             if (err) {
@@ -75,8 +77,8 @@ class usersDAO {
     login(userName, password) {
         console.log("Connected to db.")
         //Define schema for collection
-        var Admin = this.defineAdminSchema();
-        var User = this.defineUserSchema();
+        var Admin = this.adminSchema;
+        var User = this.userSchema;
         //Check if username is admin or user type.
         Admin.findOne({ $and: [{ "userName": userName }, { "password": password }, { "userType": "admin" }] }, (err, result) => {
             if (err) {
@@ -116,10 +118,11 @@ class usersDAO {
     addShippingDetails(userName, shippingAddress, shippingCity, shippingState, shippingZip, shippingCountry) {
         console.log("Connected to db.")
         //Define schema for collection
-        var User = this.defineUserSchema();
+        var User = this.userSchema;
         //Check if username is unique.
         User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
-            {$set: {
+            {
+                $set: {
                     "shippingAddress": shippingAddress,
                     "shippingCity": shippingCity,
                     "shippingState": shippingState,
@@ -141,40 +144,41 @@ class usersDAO {
             });
     }
 
-//Only do this if there is a checkbox saying to save these.
-addBillingDetails(userName, billingAddress, billingCity, billingState, billingZip, billingCountry) {
-    console.log("Connected to db.")
-    //Define schema for collection
-    var User = this.defineUserSchema();
-    //Check if username is unique.
-    User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
-        {$set: {
-                "billingAddress": billingAddress,
-                "billingCity": billingCity,
-                "billingState": billingState,
-                "billingZip": billingZip,
-                "billingCountry": billingCountry
-            }
-        }, (err, result) => {
-            if (err) {
-                console.log("Error, could not set billing details.....");
-                this.db.close();
-                return;
-            }
-            //Duplicate name
-            else {
-                console.log("Billing details updated successfully.....");
-                this.db.close();
-                return;
-            }
-        });
-}
+    //Only do this if there is a checkbox saying to save these.
+    addBillingDetails(userName, billingAddress, billingCity, billingState, billingZip, billingCountry) {
+        console.log("Connected to db.")
+        //Define schema for collection
+        var User = this.userSchema;
+        //Check if username is unique.
+        User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
+            {
+                $set: {
+                    "billingAddress": billingAddress,
+                    "billingCity": billingCity,
+                    "billingState": billingState,
+                    "billingZip": billingZip,
+                    "billingCountry": billingCountry
+                }
+            }, (err, result) => {
+                if (err) {
+                    console.log("Error, could not set billing details.....");
+                    this.db.close();
+                    return;
+                }
+                //Duplicate name
+                else {
+                    console.log("Billing details updated successfully.....");
+                    this.db.close();
+                    return;
+                }
+            });
+    }
 
     //Ignores admins
     viewAllUsers() {
         console.log("Connected to db.")
         //Define schema for collection
-        var User = this.defineUserSchema();
+        var User = this.userSchema;
         //Find model in db
         User.find({ "userType": "user" }, (err, result) => {
             if (err) console.log("Error, could not retrieve user.....");
@@ -186,7 +190,7 @@ addBillingDetails(userName, billingAddress, billingCity, billingState, billingZi
     findUserByName(userName) {
         console.log("Connected to db.")
         //Define schema for collection
-        var User = this.defineUserSchema();
+        var User = this.userSchema;
         //Find model in db // case insensitive
         User.find({ $and: [{ "userName": { $regex: new RegExp(userName), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
             if (err) console.log("Error, could not retrieve user specified.....");
@@ -199,4 +203,4 @@ addBillingDetails(userName, billingAddress, billingCity, billingState, billingZi
 //Main method for testing(use SCRAM-SHA1 for password hashing and salting)
 let users = new usersDAO();
 //users.createUserAccount("o","o","o@o.com",1231231233);
-users.addBillingDetails("o","asd","asd","asdasd",12312,"asdalkj");
+users.addBillingDetails("o", "asd", "asd", "asdasd", 12312, "asdalkj");
