@@ -11,7 +11,7 @@ export class TestServiceService {
   constructor(public httpClient:HttpClient) { }   // DI for HttpClient
 
   testConnection(): Observable<testConnection>{
-    return this.httpClient.get<testConnection>("http://localhost:3000/testConnection");
+    return this.httpClient.get<testConnection>("http://localhost:3000/test/");
   }
 
 }

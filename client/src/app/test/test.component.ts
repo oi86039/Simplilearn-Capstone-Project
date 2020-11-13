@@ -9,19 +9,22 @@ import { testConnection } from '../test_structure';
 })
 export class TestComponent implements OnInit {
 
-  result:testConnection;
+  private result:testConnection;
 
   constructor(public testService:TestServiceService) {
-    this.result = new testConnection("blank","nothing...");
+    this.result = new testConnection();
+    this.testConnection();
    }
 
   ngOnInit(): void {
   }
 
   testConnection(){
-    return this.testService.testConnection().subscribe(data=>this.result=data);
+    return this.testService.testConnection().subscribe(data=>this.result.construct(data));
   }
 
-  getResult(){return this.result._id+" : "+this.result.content;}
+  getResult(){
+    return this.result.get_id()+" : "+this.result.getContent();
+  }
 
 }
