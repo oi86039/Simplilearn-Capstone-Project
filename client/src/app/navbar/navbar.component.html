@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand" href="#">Bugger</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink] = "'/'">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink] = "'/products'">Our Products</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <!--Redirect to Login/Signup if no session-->>
+                <a [routerLink] = "'/cart'">
+                    <img alt="Cart" src="../../assets/Cart.png" width="auto" height="28px" style="margin-top:5px; margin-right:13px">
+                </a>
+            </li>
+            <li class="nav-item active">
+                <!--Make the search bar appear-->>
+                <a href="#">
+                    <img alt="Search" src="../../assets/Search.png" width="auto" height="27px" style="margin-top:5px; margin-right:37px">
+                </a>
+            </li>
+            <li class="nav-item active">
+                <!--Redirect to Login/Signup if no session-->>
+                <a [routerLink] = "'/profile'">
+                    <img alt="Search" src="../../assets/Profile.png" width="auto" height="35px" style="margin-top:2px; margin-right:9px">
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" [routerLink] = "'/login'">Log In</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" [routerLink] = "'/signup'">Sign Up</a>
+            </li>
+        </ul>
+    </div>
+</nav>

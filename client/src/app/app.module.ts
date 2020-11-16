@@ -14,6 +14,8 @@ import { ProductsComponent } from './products/products.component';
 import { AdminComponent } from './admin/admin.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { RootComponent } from './root/root.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileComponent } from './profile/profile.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -26,7 +28,9 @@ import { RootComponent } from './root/root.component';
     ProductsComponent,
     AdminComponent,
     ProductDetailsComponent,
-    RootComponent
+    RootComponent,
+    NavbarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
