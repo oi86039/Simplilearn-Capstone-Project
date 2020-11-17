@@ -1,10 +1,10 @@
 <app-navbar></app-navbar>
 <title>Home - Bugger</title>
-    <main role="main" class="container">
+    <main role="main" class="container text-center">
         <div class="jumbotron">
-            <h1>Navbar example</h1>
-            <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you
-                scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-            <a class="btn btn-lg btn-primary" href="../components/navbar/" role="button">View navbar docs &raquo;</a>
+            <img class="mb-4" src="../../assets/Logo_1.png" alt="" width="25%" height="auto">
+            <h1>Bugger: Go off and shop</h1>
+            <p class="lead">Busy as a beetle? Then click on 'Our Products' and begin shopping from our catalogue now! Since this is an example site, loading is quick and painless (hopefully). So do yourself a favor and go shop!</p>
+            <a class="btn btn-lg btn-primary" [routerLink]="'/products'">Go to Catalogue &raquo;</a>
         </div>
     </main>

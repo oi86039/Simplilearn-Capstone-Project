@@ -1,3 +1,17 @@
 <app-navbar></app-navbar>
 <title>Your Cart - Bugger</title>
-<p>cart works!</p>
+<div class="container">
+    <h2>Your Cart</h2>
+    <div class="row">
+        <div class="col-md-9">
+            <!--ngFor num products divided by 3-->
+            <div *ngFor="let in of getNumOfRows(); let i = index">
+                <app-cart-item></app-cart-item>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-lg btn-primary" [routerLink]="'/checkout'">Proceed to checkout &raquo;</button>
+        </div>
+    </div>
+    <br><br>
+</div>

@@ -19,6 +19,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ItemComponent } from './item/item.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CountriesComponent } from './countries/countries.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -36,7 +37,8 @@ import { CountriesComponent } from './countries/countries.component';
     ProfileComponent,
     ItemComponent,
     CheckoutComponent,
-    CountriesComponent
+    CountriesComponent,
+    CartItemComponent
   ],
   imports: [
     BrowserModule,

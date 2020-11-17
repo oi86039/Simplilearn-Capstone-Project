@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-  constructor() { }
+  numOfProducts: number;
+  arrayOfNum: number[];
+
+  constructor() {
+    this.numOfProducts = 5;
+    this.arrayOfNum=new Array(this.numOfProducts);  }
 
   ngOnInit(): void {
   }
 
+  getNumOfRows() {
+    return this.arrayOfNum;
+  }
+
+  loop(i:number){
+    return new Array(i);
+  }
 }
