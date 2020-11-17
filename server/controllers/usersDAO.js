@@ -1,206 +1,255 @@
 const { strict } = require("assert"); //Use strict mode error checking
 
-//Catalogue data access object (DAO)
-class usersDAO {
-    constructor() {
-        this.mongoose = require("mongoose"); //load module with mongoose schema framework
-        this.uri = "mongodb://localhost:27017/testing"; //URI
-        this.mongoose.connect(this.uri, { useNewUrlParser: true }); //reference ready to connect
-        this.db = this.mongoose.connection;
-        this.mongoose.Promise = global.Promise;
-        this.db.on("error", (err) => console.log("Error! Failed to connect to database....." + err));
+//User data access object (DAO)
+var User = require("../models/user.model");
+var Admin = require("../models/admin.model");
 
-        //Global var schema for user
-        this.userSchema = require("../models/user.model");
-        this.adminSchema = require("../models/admin.model");
-    }
+//Log in functionality
+var login = (req, res) => {
+    //Check if username is admin or user type.
+    Admin.findOne({ $and: [{ "userName": req.body.userName }, { "password": req.body.password }, { "userType": "admin" }] }, (err, result) => {
+        if (err) {
+            res.json({ "token": "false", "msg": "Error, could not log in. Please try again....." });
+            return;
+        }
+        else if (!result) {
+            User.findOne({ $and: [{ "userName": req.body.userName }, { "password": req.body.password }, { "userType": "user" }] }, (err, result) => {
+                if (err) {
+                    res.json({ "token": "false", "msg": "Error, could not log in. Please try again....." });
+                    return;
+                }
+                else if (!result) {
+                    res.json({ "token": "false", "msg": "Username/Password Incorrect." });
+                    return;
+                }
+                else {
+                    //Sign into user homepage w/ res.redirect
+                    res.json({ "token": "true", "msg": "User account signed into successfully" });
+                    return;
+                }
+            });
+        }
+        else {
+            //Sign into admin portal w/ res.redirect
+            res.json({ "token": "true", "msg": "Admin account signed into successfully" });
+            return;
+        }
+    });
+}
 
-    //Test if connection worked
-    testConnection() {
-        console.log("Connected to db. Exitting.....")
-        this.db.close();
-    }
-    //#endregion
-    //Sign up functionality 
-    createUserAccount(userName, password, email, phone) {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var User = this.userSchema;
-        //Check if username is unique.
-        User.findOne({ "userName": userName }, (err, result) => {
+//#region Create
+//Sign up functionality //Admins are NOT accessible. They must be created manually
+var createUser = (req, res) => {
+    //Check if username is unique.
+    User.findOne({ "userName": req.body.userName }, (err, result) => {
+        if (err) {
+            res.json({ "token": "false", "msg": "Error, could not validate username....." });
+            return;
+        }
+        //Duplicate name
+        else if (result) {
+            res.json({ "token": "false", "msg": "Invalid username: Must be unique." });
+            return;
+        }
+        else {
+            //If everything is valid, do more stuff.
+            //create user document instance/reference
+            var u1 = new User({
+                "userType": "user",
+                "userName": req.body.userName,
+                "password": req.body.password,
+                "email": req.body.email,
+                "phone": req.body.phone,
+                "shippingAddress": "",
+                "shippingCity": "",
+                "shippingState": "",
+                "shippingZip": 0,
+                "shippingCountry": "",
+                'billingAddress': "",
+                "billingCity": "",
+                "billingState": "",
+                "billingZip": "",
+                "billingCountry": "",
+                "balance": 0.00,
+                "cart": [],
+                "Purchase History": [],
+                "Viewing History": []
+            });
+
+            //Ready to save record to MongoDB
+            u1.save((err, result2) => {
+                if (err) res.json({ "token": "false", "msg": "Error, user not created....." });
+                else res.json({ "token": "true", "msg": "User added successfully..... Exitting...." });
+            });
+        }
+    });
+}
+var admin_createUser = (req, res) => {
+    //Check if username is unique.
+    User.findOne({ "userName": req.body.userName }, (err, result) => {
+        if (err) {
+            res.json({ "token": "false", "msg": "Error, could not validate username....." });
+            return;
+        }
+        //Duplicate name
+        else if (result) {
+            res.json({ "token": "false", "msg": "Invalid username: Must be unique." });
+            return;
+        }
+        else {
+            //If everything is valid, do more stuff.
+            //create user document instance/reference
+            var u1 = new User({
+                "userType": "user",
+                "userName": req.body.userName,
+                "password": req.body.password,
+                "email": req.body.email,
+                "phone": req.body.phone,
+                "shippingAddress": req.body.shippingAddress,
+                "shippingCity": req.body.shippingCity,
+                "shippingState": req.body.shippingState,
+                "shippingZip": req.body.shippingZip,
+                "shippingCountry": req.body.shippingCountry,
+                'billingAddress': req.body.billingAddress,
+                "billingCity": req.body.billingCity,
+                "billingState": req.body.billingState,
+                "billingZip": req.body.billingZip,
+                "billingCountry": req.body.billingCountry,
+                "balance": req.body.balance,
+                "cart": [],
+                "Purchase History": [],
+                "Viewing History": []
+            });
+
+            //Ready to save record to MongoDB
+            u1.save((err, result2) => {
+                if (err) res.json({ "token": "false", "msg": "Error, user not created....." });
+                else res.json({ "token": "true", "msg": "User added successfully..... Exitting...." });
+            });
+        }
+    });
+}
+//#endregion
+
+//#region Retrieve
+var admin_viewAllUsers = (req, res) => {
+    //Find model in db
+    User.find({ "userType": "user" }, (err, result) => {
+        if (err)
+            res.json({ "token": "false", "msg": "Error, could not retrieve user list....." });
+        else
+            res.json({ "token": "true", "content": result });
+    });
+}
+//Username must be unique
+var admin_findUserByName = (req, res) => {
+    //Find model in db // case insensitive
+    User.find({ $and: [{ "userName": { $regex: new RegExp(req.body.userName), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
+        if (err) res.json({ "token": "false", "msg": "Error, could not retrieve user specified....." });
+        else res.json({ "token": "true", "content": result });
+    });
+}
+//Username must be unique
+var admin_findUserById = (req, res) => {
+    //Find model in db // case insensitive
+    User.find({ $and: [{ "_id": { $regex: new RegExp(req.body._id), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
+        if (err) res.json({ "token": "false", "msg": "Error, could not retrieve user specified....." });
+        else res.json({ "token": "true", "content": result });
+    });
+}
+//#endregion
+
+//#region Update
+//Search by id and update with given attributes
+var admin_updateUser = (req, res) => {
+    User.update({ _id: req.body._id }, {
+        $set:
+        {
+            "userName": req.body.userName,
+            "password": req.body.password,
+            "email": req.body.email,
+            "phone": req.body.phone,
+            "shippingAddress": req.body.shippingAddress,
+            "shippingCity": req.body.shippingCity,
+            "shippingState": req.body.shippingState,
+            "shippingZip": req.body.shippingZip,
+            "shippingCountry": req.body.shippingCountry,
+            'billingAddress': req.body.billingAddress,
+            "billingCity": req.body.billingCity,
+            "billingState": req.body.billingState,
+            "billingZip": req.body.billingZip,
+            "billingCountry": req.body.billingCountry,
+            "balance": req.body.balance,
+        }
+    }, (err, result) => {
+        if (err) throw err;
+        if (result.nModified > 0) {
+            res.json({ "token": "true", "msg": "Record updated successfully" });
+        } else {
+            res.json({ "token": "false", "msg": "Error: Record didn't update" });
+        }
+    })
+}
+//Only do this if there is a checkbox saying to save these.
+var addShippingDetails = (req, res) => {
+    //Check if username is unique.
+    User.updateOne({ $and: [{ "userName": req.body.userName }, { "userType": "user" }] },
+        {
+            $set: {
+                "shippingAddress": req.body.shippingAddress,
+                "shippingCity": req.body.shippingCity,
+                "shippingState": req.body.shippingState,
+                "shippingZip": req.body.shippingZip,
+                "shippingCountry": req.body.shippingCountry
+            }
+        }, (err, result) => {
             if (err) {
-                console.log("Error, could not validate username.....");
-                this.db.close();
+                res.json({ "token": "false", "msg": "Error, could not set shipping details....." });
                 return;
             }
             //Duplicate name
-            else if (result) {
-                console.log("Invalid username: Must be unique.");
-                this.db.close();
-                return;
-            }
             else {
-                //If everything is valid, do more stuff.
-                //create user document instance/reference
-                var u1 = new User({
-                    "userType": "user",
-                    "userName": userName,
-                    "password": password,
-                    "email": email,
-                    "phone": phone,
-                    "shippingAddress": "",
-                    "shippingCity": "",
-                    "shippingState": "",
-                    "shippingZip": 0,
-                    "shippingCountry": "",
-                    'billingAddress': "",
-                    "billingCity": "",
-                    "billingState": "",
-                    "billingZip": "",
-                    "billingCountry": "",
-                    "balance": 0.00,
-                    "cart": [],
-                    "Purchase History": [],
-                    "Viewing History": []
-                });
-
-                //Ready to save record to MongoDB
-                u1.save((err, result2) => {
-                    if (err) console.log("Error, user not created.....\n\n" + err);
-                    else console.log("User added successfully..... Exitting....");
-                    this.db.close();
-                });
-            }
-        });
-    }
-    //Log in functionality
-    login(userName, password) {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var Admin = this.adminSchema;
-        var User = this.userSchema;
-        //Check if username is admin or user type.
-        Admin.findOne({ $and: [{ "userName": userName }, { "password": password }, { "userType": "admin" }] }, (err, result) => {
-            if (err) {
-                console.log("Error, could not log in. Please try again.....");
-                this.db.close();
-                return;
-            }
-            else if (!result) {
-                User.findOne({ $and: [{ "userName": userName }, { "password": password }, { "userType": "user" }] }, (err, result) => {
-                    if (err) {
-                        console.log("Error, could not log in. Please try again.....");
-                        this.db.close();
-                        return;
-                    }
-                    else if (!result) {
-                        console.log("Username/Password Incorrect.");
-                        this.db.close();
-                        return;
-                    }
-                    else {
-                        //Sign into user homepage w/ res.redirect
-                        console.log("User account signed into successfully");
-                        this.db.close();
-                        return;
-                    }
-                });
-            }
-            else {
-                //Sign into admin portal w/ res.redirect
-                console.log("Admin account signed into successfully");
-                this.db.close();
+                res.json({ "token": "true", "msg": "Shipping details updated successfully....." });
                 return;
             }
         });
-    }
-    //Only do this if there is a checkbox saying to save these.
-    addShippingDetails(userName, shippingAddress, shippingCity, shippingState, shippingZip, shippingCountry) {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var User = this.userSchema;
-        //Check if username is unique.
-        User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
-            {
-                $set: {
-                    "shippingAddress": shippingAddress,
-                    "shippingCity": shippingCity,
-                    "shippingState": shippingState,
-                    "shippingZip": shippingZip,
-                    "shippingCountry": shippingCountry
-                }
-            }, (err, result) => {
-                if (err) {
-                    console.log("Error, could not set shipping details.....");
-                    this.db.close();
-                    return;
-                }
-                //Duplicate name
-                else {
-                    console.log("Shipping details updated successfully.....");
-                    this.db.close();
-                    return;
-                }
-            });
-    }
-
-    //Only do this if there is a checkbox saying to save these.
-    addBillingDetails(userName, billingAddress, billingCity, billingState, billingZip, billingCountry) {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var User = this.userSchema;
-        //Check if username is unique.
-        User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
-            {
-                $set: {
-                    "billingAddress": billingAddress,
-                    "billingCity": billingCity,
-                    "billingState": billingState,
-                    "billingZip": billingZip,
-                    "billingCountry": billingCountry
-                }
-            }, (err, result) => {
-                if (err) {
-                    console.log("Error, could not set billing details.....");
-                    this.db.close();
-                    return;
-                }
-                //Duplicate name
-                else {
-                    console.log("Billing details updated successfully.....");
-                    this.db.close();
-                    return;
-                }
-            });
-    }
-
-    //Ignores admins
-    viewAllUsers() {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var User = this.userSchema;
-        //Find model in db
-        User.find({ "userType": "user" }, (err, result) => {
-            if (err) console.log("Error, could not retrieve user.....");
-            else console.log(JSON.stringify(result, null, 2));
-            this.db.close();
-        })
-    }
-    //Username must be unique
-    findUserByName(userName) {
-        console.log("Connected to db.")
-        //Define schema for collection
-        var User = this.userSchema;
-        //Find model in db // case insensitive
-        User.find({ $and: [{ "userName": { $regex: new RegExp(userName), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
-            if (err) console.log("Error, could not retrieve user specified.....");
-            else console.log(JSON.stringify(result, null, 2));
-            this.db.close();
-        })
-    }
 }
+var addBillingDetails = (req, res) => {
+    //Check if username is unique.
+    User.updateOne({ $and: [{ "userName": userName }, { "userType": "user" }] },
+        {
+            $set: {
+                "billingAddress": billingAddress,
+                "billingCity": billingCity,
+                "billingState": billingState,
+                "billingZip": billingZip,
+                "billingCountry": billingCountry
+            }
+        }, (err, result) => {
+            if (err) {
+                res.json({ "token": "false", "msg": "Error, could not set billing details....." });
+                return;
+            }
+            //Duplicate name
+            else {
+                res.json({ "token": "true", "msg": "Billing details updated successfully....." });
+                return;
+            }
+        });
+}
+//#endregion
 
-//Main method for testing(use SCRAM-SHA1 for password hashing and salting)
-let users = new usersDAO();
-//users.createUserAccount("o","o","o@o.com",1231231233);
-users.addBillingDetails("o", "asd", "asd", "asdasd", 12312, "asdalkj");
+//#region Delete
+var admin_deleteUser = (req, res) => {
+    User.deleteOne({ _id: req.params.id }, (err, result) => {
+        if (err) throw err;
+        if (result.deletedCount > 0) {
+            res.json({ "token": "true", "msg": "Record deleted successfully" })
+        } else {
+            res.json({ "token": "false", "msg": "Record not present" })
+        }
+    })
+}
+//#endregion
+
+module.exports = {login,createUser,admin_createUser,admin_viewAllUsers,admin_findUserByName,admin_findUserById,admin_updateUser,addShippingDetails,addBillingDetails,admin_deleteUser};
