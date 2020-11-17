@@ -11,7 +11,7 @@ router.get("/viewAllProducts", catalogueDAO.viewAllProducts);
 router.get("/findProductsByName/:name", catalogueDAO.findProductsByName);
 router.get("/findProductsById/:id", catalogueDAO.findProductsById);
 router.get("/findProductsByTag/:tag", catalogueDAO.findProductsByTag);
-router.put("/admin/updateProduct", catalogueDAO.admin_UpdateProduct); //param comes from angular, not url
+router.put("/admin/updateProduct/:id", catalogueDAO.admin_UpdateProduct); //param comes from angular, not url
 router.delete("/admin/deleteProductById/:id", catalogueDAO.admin_DeleteProduct)
 
 //User

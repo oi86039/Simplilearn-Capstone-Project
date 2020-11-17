@@ -122,19 +122,48 @@ export class CartItem {
     this.quantity = quantity;
   }
 }
-// export class Catalogue {
-//   items:Item[];
 
-//   construct(data){
+export class Cart {
+  cartItems: CartItem[];
+}
 
-//   }
-//   constructor(){
+export class Catalogue {
+  items: Item[];
 
-//   }
-// }
+  construct(data) {
+    this.items = data;
+  }
+  constructor() {
+    this.items = new Item[2];
+  }
+}
 
-//export class User{}
-//export class Admin{}
+export class User {
+  userType: String;
+  userName: String;
+  password: String;
+  email: String;
+  phone: Number;
+  shippingAddress: String;
+  shippingCity: String;
+  shippingState: String;
+  shippingZip: Number;
+  shippingCountry: String;
+  billingAddress: String;
+  billingCity: String;
+  billingState: String;
+  billingZip: Number;
+  billingCountry: String;
+  balance: Number;
+  cart: CartItem[];
+  Purchase_History: CartItem[];
+  Viewing_History: CartItem[];
+}
+export class Admin { 
+  userType: String;
+  userName: String;
+  password: String;
+}
 export class testConnection {
   private _id: string;
   private content: any;
@@ -151,5 +180,19 @@ export class testConnection {
   constructor(_id: string = "", content: any = "") {
     this._id = _id;
     this.content = content;
+  }
+}
+export class confirmation {
+  private token: boolean;
+  private msg: string;
+
+  construct(data) {
+    this.token = data["token"];
+    this.msg = data["msg"];
+  }
+
+  constructor() {
+    this.token = false;
+    this.msg = "";
   }
 }
