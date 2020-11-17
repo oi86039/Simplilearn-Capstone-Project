@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  searchOn:boolean;
+
+  constructor() { 
+    this.searchOn=false;
+  }
 
   ngOnInit(): void {
+  }
+
+  toggleSearch(){
+    this.searchOn=!this.searchOn;
   }
 
 }

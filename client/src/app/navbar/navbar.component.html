@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <a class="navbar-brand" [routerLink] = "'/'">
-        <img alt="Search" src="../../assets/Logo.png" width="auto" height="60px" style="margin-top:0px; margin-right:0px">
+<nav class="navbar navbar-expand-md navbar-dark bg mb-4">
+    <a class="navbar-brand" [routerLink]="'/'">
+        <img alt="Search" src="../../assets/Logo.png" width="auto" height="47px"
+            style="margin-top:0px; margin-right:0px">
     </a>
     <a class="navbar-brand" href="#">Bugger</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -10,36 +11,45 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" [routerLink] = "'/'">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" [routerLink]="'/'">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" [routerLink] = "'/products'">Our Products</a>
+                <a class="nav-link" [routerLink]="'/products'">Our Products</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <!--Redirect to Login/Signup if no session-->>
-                <a [routerLink] = "'/cart'">
-                    <img alt="Cart" src="../../assets/Cart.png" width="auto" height="28px" style="margin-top:5px; margin-right:13px">
+                <!--Redirect to Login/Signup if no session-->
+                <a [routerLink]="'/cart'">
+                    <img alt="Cart" src="../../assets/Cart.png" width="auto" height="28px"
+                        style="margin-top:5px; margin-right:17px">
                 </a>
             </li>
             <li class="nav-item active">
-                <!--Make the search bar appear-->>
-                <a href="#">
-                    <img alt="Search" src="../../assets/Search.png" width="auto" height="27px" style="margin-top:5px; margin-right:37px">
+                <!--Make the search bar appear-->
+                <a (click)="toggleSearch()">
+                    <img alt="Search" src="../../assets/Search.png" width="auto" height="27px"
+                        style="margin-top:5px; margin-right:37px">
                 </a>
+            </li>
+            <li>
+                <form *ngIf="searchOn" class="form-inline mt-2 mt-md-0" style="padding-right:20px;">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Enter tag(s)..." aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </li>
             <li class="nav-item active">
-                <!--Redirect to Login/Signup if no session-->>
-                <a [routerLink] = "'/profile'">
-                    <img alt="Search" src="../../assets/Profile.png" width="auto" height="35px" style="margin-top:2px; margin-right:9px">
+                <!--Redirect to Login/Signup if no session-->
+                <a [routerLink]="'/profile'">
+                    <img alt="My Profile" src="../../assets/Profile.png" width="auto" height="35px"
+                        style="margin-top:2px; margin-right:9px">
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" [routerLink] = "'/login'">Log In</a>
+                <a class="nav-link active" [routerLink]="'/login'">Log In</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" [routerLink] = "'/signup'">Sign Up</a>
+                <a class="nav-link active" [routerLink]="'/signup'">Sign Up</a>
             </li>
         </ul>
     </div>

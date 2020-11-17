@@ -16,6 +16,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { RootComponent } from './root/root.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ItemComponent } from './item/item.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CountriesComponent } from './countries/countries.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -30,7 +33,10 @@ import { ProfileComponent } from './profile/profile.component';
     ProductDetailsComponent,
     RootComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    ItemComponent,
+    CheckoutComponent,
+    CountriesComponent
   ],
   imports: [
     BrowserModule,
