@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-admin-navbar',
+  templateUrl: './admin-navbar.component.html',
+  styleUrls: ['./admin-navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class AdminNavbarComponent implements OnInit {
 
   searchOn:boolean;
   signed_in:boolean
 
   constructor() { 
     this.searchOn=false;
-    this.signed_in=false; //based on session
+    this.signed_in=true; //based on session
   }
 
   ngOnInit(): void {
@@ -25,5 +25,4 @@ export class NavbarComponent implements OnInit {
   signedIn(){
     return this.signed_in;
   }
-
 }

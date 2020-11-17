@@ -20,6 +20,7 @@ import { ItemComponent } from './item/item.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     ItemComponent,
     CheckoutComponent,
     CountriesComponent,
-    CartItemComponent
+    CartItemComponent,
+    AdminNavbarComponent
   ],
   imports: [
     BrowserModule,
