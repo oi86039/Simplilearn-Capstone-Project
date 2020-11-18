@@ -1,5 +1,18 @@
-<app-navbar></app-navbar>
+<app-admin-navbar></app-admin-navbar>
 <title>Test Page - Bugger</title>
-<p>{{getResult()}}</p>
+Test Connection:
+<button (click)="testConnection()">Press</button>
+<p>{{getTestConnection()}}</p>
 <!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
-<a [routerLink] = "'/products'">Go to products...</a>
+Create Account
+<input type="text" [(ngModel)]="itemName" placeholder="itemName">
+<input type="text" [(ngModel)]="imageURLs" placeholder="imageURLs">
+<input type="number" [(ngModel)]="Price" placeholder="Price">
+<input type="text" [(ngModel)]="description" placeholder="description">
+<input type="number" [(ngModel)]="inStock" placeholder="inStock">
+<input type="number" [(ngModel)]="daysToArrive" placeholder="daysToArrive">
+<input type="text" [(ngModel)]="tags" placeholder="tags">
+<input type="text" [(ngModel)]="rating" placeholder="rating">
+
+<button (click)="admin_createProduct()">Submit</button>
+<p>{{getConfirmation()}}</p>

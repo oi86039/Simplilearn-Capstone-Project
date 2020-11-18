@@ -1,7 +1,7 @@
 var mongoose=require("mongoose");
 mongoose.pluralize(null); //avoid a post fix for the collection (?)
 
-var adminSchema = this.mongoose.Schema({
+var adminSchema = mongoose.Schema({
     "userType": String,
     "userName": String,
     "password": String

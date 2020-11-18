@@ -33,7 +33,7 @@ export class TestServiceService {
     return this.httpClient.put<confirmation>("http://localhost:3000/test/admin/updateProduct/"+_id,item);
   }
   admin_DeleteProduct(_id):Observable<confirmation>{
-    return this.httpClient.delete<confirmation>("http://localhost:3000/test/admin/updateProduct/"+_id);
+    return this.httpClient.delete<confirmation>("http://localhost:3000/test/admin/deleteProduct/"+_id);
   }
 
   //User

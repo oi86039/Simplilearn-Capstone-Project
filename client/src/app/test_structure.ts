@@ -1,3 +1,4 @@
+
 export class Review {
   private title: string;
   private description: string;
@@ -62,8 +63,7 @@ export class Item {
     this.reviews = data["reviews"];
   }
 
-  constructor(_id: string, itemName: string, imageURLs: string[], Price: number, description: string, inStock: number, daysToArrive: number, tags: string[], rating: number, reviews: Review[]) {
-    this._id = _id;
+  constructor(itemName: string, imageURLs: string[], Price: number, description: string, inStock: number, daysToArrive: number, tags: string[], rating: number) {
     this.itemName = itemName;
     this.imageURLs = imageURLs;
     this.Price = Price;
@@ -72,7 +72,6 @@ export class Item {
     this.daysToArrive = daysToArrive;
     this.tags = tags;
     this.rating = rating;
-    this.reviews = reviews;
   }
 
 }
@@ -185,6 +184,13 @@ export class testConnection {
 export class confirmation {
   private token: boolean;
   private msg: string;
+
+  getToken(){
+    return this.token;
+  }
+  getMsg(){
+    return this.msg;
+  }
 
   construct(data) {
     this.token = data["token"];

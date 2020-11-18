@@ -13,19 +13,19 @@ var testConnection = (req, res) => {
 var admin_createProduct = (req, res) => {
     //create product document instance/reference
     var p1 = new Product({
-        "itemName": req.body.itemName,
-        "imageURLs": req.body.imageURLs,
-        "Price": req.body.Price,
-        "description": req.body.description,
-        "inStock": req.body.inStock,
-        "daysToArrive": req.body.daysToArrive,
-        "tags": req.body.tags,
-        "rating": req.body.rating,
-        "reviews": req.body.reviews
+        "itemName": req.params.Item.itemName,
+        "imageURLs": req.params.Item.imageURLs,
+        "Price": req.params.Item.Price,
+        "description": req.params.Item.description,
+        "inStock": req.params.Item.inStock,
+        "daysToArrive": req.params.Item.daysToArrive,
+        "tags": req.params.Item.tags,
+        "rating": req.params.Item.rating,
+        "reviews": req.params.Item.reviews
     });
     //Ready to save record to MongoDB
     p1.save((err, result) => {
-        if (err) res.json({ "token": "false", "msg": "Error, item not created....." });
+        if (err) {res.json({ "token": "false", "msg": "Error, item not created....." })}
         else res.json({ "token": "true", "msg": "item created successfully....." });
     });
 }

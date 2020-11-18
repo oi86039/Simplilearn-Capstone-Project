@@ -11,6 +11,6 @@ var itemSchema = mongoose.Schema({
     "tags": [{ type: String }],
     "rating": Number,
     "quantity": Number
-}, { collection: 'catalogue' }); //Force collection name to be catalogue
+}, { collection: 'cart' }); //Force collection name to be catalogue
 
-module.exports=mongoose.model("catalogue", itemSchema);
+module.exports=mongoose.model("cart", itemSchema);
