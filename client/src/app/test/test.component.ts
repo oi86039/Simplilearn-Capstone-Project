@@ -17,16 +17,18 @@ export class TestComponent implements OnInit {
   private cart: CartItem[];
 
   //Product Form Control
-  _id=""
-  itemName="";
-  imageURLs="";
-  Price="";
-  description="";
-  inStock="";
-  daysToArrive="";
-  tags="";
-  rating="";
-  reviews="";
+  itemName = "";
+  imageURLs = "";
+  Price = "";
+  description = "";
+  inStock = "";
+  daysToArrive = "";
+  tags = "";
+  rating = "";
+  reviews = "";
+
+  _id = ""
+  _name = ""
 
   constructor(public testService: TestServiceService) {
     this.TestConnection = new testConnection();
@@ -36,7 +38,7 @@ export class TestComponent implements OnInit {
     this.cart = [];
   }
 
-  counter(num){ //For ngFor loops
+  counter(num) { //For ngFor loops
     return new Array(num);
   }
   ngOnInit(): void {
@@ -52,32 +54,32 @@ export class TestComponent implements OnInit {
     return this.Confirmation.getToken() + " : " + this.Confirmation.getMsg();
   }
 
-//#region Item management
-public getItemsArray(){return this.items;}
-// public Item_get_id(index): string { return this.items[index].get_id(); }
-//   public Item_getItemName(index): string { return this.items[index].getItemName(); }
-//   public Item_getImageURL(index): string[] { return this.items[index].getImageURLs(); }
-//   public Item_getPrice(index): number { return this.items[index].getPrice(); }
-//   public Item_getDescription(index): string { return this.items[index].getDescription(); }
-//   public Item_getInStock(index): number { return this.items[index].getInStock(); }
-//   public Item_getDaysToArrive(index): number { return this.items[index].getDaysToArrive(); }
-//   public Item_getTags(index): string[] { return this.items[index].getTags(); }
-//   public Item_getRating(index): number { return this.items[index].getRating(); }
-//   public Item_getReviews(index): Review[] { return this.items[index].getReviews(); }
-//#endregion
+  //#region Item management
+  public getItemsArray() { if (this.items == []) console.log("No results found."); else return this.items; }
+  // public Item_get_id(index): string { return this.items[index].get_id(); }
+  //   public Item_getItemName(index): string { return this.items[index].getItemName(); }
+  //   public Item_getImageURL(index): string[] { return this.items[index].getImageURLs(); }
+  //   public Item_getPrice(index): number { return this.items[index].getPrice(); }
+  //   public Item_getDescription(index): string { return this.items[index].getDescription(); }
+  //   public Item_getInStock(index): number { return this.items[index].getInStock(); }
+  //   public Item_getDaysToArrive(index): number { return this.items[index].getDaysToArrive(); }
+  //   public Item_getTags(index): string[] { return this.items[index].getTags(); }
+  //   public Item_getRating(index): number { return this.items[index].getRating(); }
+  //   public Item_getReviews(index): Review[] { return this.items[index].getReviews(); }
+  //#endregion
 
   //Catalogue
   admin_createProduct() {
-    var json={
-      "itemName":this.itemName,
-      "imageURLs":[this.imageURLs],
-      "Price":this.Price,
-      "description":this.description,
-      "inStock":this.inStock,
-      "daysToArrive":this.daysToArrive,
-      "tags":[this.tags],
-      "rating":this.rating,
-      "reviews":[]
+    var json = {
+      "itemName": this.itemName,
+      "imageURLs": [this.imageURLs],
+      "Price": this.Price,
+      "description": this.description,
+      "inStock": this.inStock,
+      "daysToArrive": this.daysToArrive,
+      "tags": [this.tags],
+      "rating": this.rating,
+      "reviews": []
     };
     //console.log(JSON.stringify(json));
     return this.testService.admin_createProduct(json).subscribe(data => this.Confirmation.construct(data));
@@ -91,19 +93,21 @@ public getItemsArray(){return this.items;}
       }
     });
   }
-  findProductsByName(name) {
-    return this.testService.findProductsByName(name).subscribe(data => {
-      this.items = null;
-      for (let i = 0; i < data.length; i++) {
-        this.items[i] = data[i];
+  findProductsByName() {
+    return this.testService.findProductsByName(this._name).subscribe(data => {
+      this.items = [];
+      if (data.token) {
+        for (let a of data.content)
+          this.items.push(new Item(a));
       }
     });
   }
-  findProductsById(_id) {
-    return this.testService.findProductsById(_id).subscribe(data => {
+  findProductsById() {
+    return this.testService.findProductsById(this._id).subscribe(data => {
       this.items = [];
-      for (let i = 0; i < data.length; i++) {
-        this.items.push(data[i]);
+      if (data.token) {
+        for (let a of data.content)
+          this.items.push(new Item(a));
       }
     });
   }

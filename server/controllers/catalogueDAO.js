@@ -51,16 +51,22 @@ var viewAllProducts = (req, res) => {
 }
 var findProductsByName = (req, res) => {
     //Find model in db // case insensitive
-    Product.find({ "itemName": { $regex: new RegExp(req.body.itemName), $options: 'i' } }, (err, result) => {
+    Product.find({ "itemName": { $regex: new RegExp(req.params.name), $options: 'i' } }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else res.json({ "token": "true", "content": result });
     })
 }
+
+//params is used for link variables
 var findProductsById = (req, res) => {
     //Find model in db // case insensitive
-    Product.find({ "_id": { $regex: new RegExp(req.body._id), $options: 'i' } }, (err, result) => {
-        if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
-        else res.json({ "token": "true", "content": result });
+    Product.find({ "_id": { $regex: new RegExp(req.params._id), $options: 'i' }}, (err, result) => {
+        if (err) {
+            //console.log(err);
+            res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });}
+        else {
+            console.log(req.params._id +" | "+ result);
+            res.json({ "token": "true", "content": result });}
     })
 }
 var findProductsByTag = (req, res) => {

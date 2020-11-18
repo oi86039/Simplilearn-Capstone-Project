@@ -25,14 +25,14 @@ export class TestServiceService {
   viewAllProducts():Observable<any>{
     return this.httpClient.get<any>("http://localhost:3000/test/viewAllProducts/");
   }
-  findProductsByName(name):Observable<Item[]>{
-    return this.httpClient.get<Item[]>("http://localhost:3000/test/findProductsByName/"+name);
+  findProductsByName(name):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/findProductsByName/"+name);
   }
-  findProductsById(_id):Observable<Item[]>{
-    return this.httpClient.get<Item[]>("http://localhost:3000/test/findProductsById/"+_id);
+  findProductsById(_id):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/findProductsById/"+_id);
   }
-  findProductsByTag(tags:string[]):Observable<Item[]>{
-    return this.httpClient.post<Item[]>("http://localhost:3000/test/findProductsByTag/",tags);
+  findProductsByTag(tags:string[]):Observable<any>{
+    return this.httpClient.post<any>("http://localhost:3000/test/findProductsByTag/",tags);
   }
   admin_UpdateProduct(_id,item:Item):Observable<confirmation>{
     return this.httpClient.put<confirmation>("http://localhost:3000/test/admin/updateProduct/"+_id,item);
