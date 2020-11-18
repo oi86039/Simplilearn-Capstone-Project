@@ -2,36 +2,52 @@
 <title>Our Products - Bugger</title>
 <div class="row">
     <div class="form-group col-md-2" style="padding-left: 2%;">
-        <h4>Shop by Tag(s)</h4>
-        <input type="text" class="form-control" name="filter" id="filter" placeholder="Enter tag(s)">
-        <button>Search</button>
-        <h4>Available Tags</h4>
+        
+        <h4>Search by</h4>
+        <hr class="mb-4">
+        <input type="text" class="form-control" [(ngModel)]="_name" placeholder="Enter product name">
+        <a class="btn btn-outline-success" (click)="findProductsByName()">Search</a>
+        <h4>Filter By Tag</h4>
         <ul>
-            <li><a>phone</a></li>
-            <li><a>smart</a></li>
-            <li><a>dinner</a></li>
-            <li><a>plate</a></li>
-            <li><a>cat</a></li>
-            <li><a>pencil</a></li>
-            <li><a>headphones</a></li>
-            <li><a>bass</a></li>
-            <li><a>food</a></li>
-            <li><a>kitchen</a></li>
+            <li><button (click)="viewAllProducts()" class="btn btn-link">All Products</button></li>
+            <li><button (click)="findProductsByTagSpecified('phone')" class="btn btn-link">phone</button></li>
+            <li><button (click)="findProductsByTagSpecified('smart')" class="btn btn-link">smart</button></li>
+            <li><button (click)="findProductsByTagSpecified('dinner')" class="btn btn-link">dinner</button></li>
+            <li><button (click)="findProductsByTagSpecified('plate')" class="btn btn-link">plate</button></li>
+            <li><button (click)="findProductsByTagSpecified('cat')" class="btn btn-link">cat</button></li>
+            <li><button (click)="findProductsByTagSpecified('pencil')" class="btn btn-link">pencil</button></li>
+            <li><button (click)="findProductsByTagSpecified('headphones')" class="btn btn-link">headphones</button></li>
+            <li><button (click)="findProductsByTagSpecified('bass')" class="btn btn-link">bass</button></li>
+            <li><button (click)="findProductsByTagSpecified('food')" class="btn btn-link">food</button></li>
+            <li><button (click)="findProductsByTagSpecified('kitchen')" class="btn btn-link">kitchen</button></li>
         </ul>
     </div>
     <div class="col-md-10">
-        <!--ngFor num products divided by 3-->
-        <div class="row" *ngFor="let in of getNumOfRows(); let i = index">
-            <!--ngFor up to 3 products-->
-            <div class="col-4" *ngFor="let in of loop(3); let i = index">
-                <app-item></app-item>
+        <h2>{{getProductCount()}} Product(s)</h2>
+        <!--Item display-->
+        <hr class="mb-4">
+        <div *ngFor="let item of getItemsArray()">
+            <h4>{{item.getItemName()}}</h4>
+            <div class="row">
+                <img class="col-md-2" src="{{item.getImageURL()}}">
+                <div class="col-md-7">
+                    <h5>Price: {{item.getPrice()}}</h5>
+                    <span *ngFor="let in of loop(item.getRating())">
+                        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=2% height="auto">
+                    </span>
+                    <h5>{{item.getReviewCount()}} Reviews</h5>
+                    <h5>{{item.getInStock()}} left in Stock</h5>
+                    <h5>Will arrive in {{item.getDaysToArrive()}} days</h5>
+                    <h5>Tags: {{item.getTags()}}</h5>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-lg btn-primary">Add to Cart <img alt="Cart" src="../../assets/Cart.png" width="auto" height="25px"
+                        style="margin-bottom:4px; margin-left:4px"></a>
+                </div>
             </div>
+            <hr class="mb-4">
         </div>
-        <div class="row" *ngIf="ifRemainder()">
-            <div class="col-4" *ngFor="let in of getRemainder(); let i = index">
-                <app-item></app-item>
-            </div>
-        </div>
-            <br><br>
     </div>
+
+
 </div>

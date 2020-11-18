@@ -1,16 +1,21 @@
-<div class="container text-center">
-    <!--Product Link-->
-    <img [routerLink]="'/'" class="mb-4" src="../../assets/Logo_1.png" alt="" width=45% height="auto">
-    <div>
-        <a class="h3" [routerLink]="'/'">Product Name</a>
-        <h5>In Stock</h5>
-        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=6% height="auto">
-        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=6% height="auto">
-        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=6% height="auto">
-        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=6% height="auto">
-        <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=6% height="auto">
-        <h5>$50.00</h5>
-        <p class="h5"># reviews</p>
-        <!--ngFor for the stars-->
-    </div>
-</div>
+<hr class="mb-4">
+    <div *ngFor="let item of getItemsArray()">
+        <h4>{{item.getItemName()}}</h4>    
+        <div *ngFor="let url of item.getImageURLs()">
+        <img src="{{url}}" width="100px" height="auto">
+        </div>    
+        <p>Price: {{item.getPrice()}}</p>    
+        <p>Description: {{item.getDescription()}}</p>    
+        <p>In Stock: {{item.getInStock()}}</p>    
+        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>    
+        <p>Tags: {{item.getTags()}}</p>    
+        <p>Rating: {{item.getRating()}}</p> 
+        <p>{{item.getReviewCount()}} Reviews</p>   
+        <div *ngFor="let review of item.getReviews()">
+            <p>Title: {{review.getTitle()}}</p>
+            <p>Rating:</p>
+            <span *ngFor="let in of loop(review.getRating())">
+                <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=1% height="auto">
+            </span>
+            <p>Description: {{review.getDescription()}}</p>
+        </div>

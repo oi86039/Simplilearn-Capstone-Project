@@ -47,6 +47,7 @@ export class Item {
   public get_id(): string { return this._id; }
   public set_id(_id: string): void { this._id = _id; }
   public getItemName(): string { return this.itemName; }
+  public getImageURL(): string { return this.imageURLs[0]; }
   public getImageURLs(): string[] { return this.imageURLs; }
   public getPrice(): number { return this.Price; }
   public getDescription(): string { return this.description; }
