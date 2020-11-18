@@ -6,6 +6,7 @@
     <p>{{getTestConnection()}}</p>
     <!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
     Create Account
+    <input type="text" class="form-control" [(ngModel)]="_id" placeholder="_id">
     <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName">
     <input type="text" class="form-control" [(ngModel)]="imageURLs" placeholder="imageURLs">
     <input type="number" class="form-control" [(ngModel)]="Price" placeholder="Price">
@@ -17,4 +18,29 @@
 
     <button (click)="admin_createProduct()">Submit</button>
     <p>{{getConfirmation()}}</p>
+    <button (click)="viewAllProducts()">View All Products</button>
+    <hr class="mb-4">
+    <div *ngFor="let item of getItemsArray()">
+        <p>_id: {{item.get_id()}}</p>
+        <p>itemName: {{item.getItemName()}}</p>    
+        <div *ngFor="let url of item.getImageURLs()">
+        <img src="{{url}}" width="100px" height="auto">
+        </div>    
+        <p>Price: {{item.getPrice()}}</p>    
+        <p>Description: {{item.getDescription()}}</p>    
+        <p>In Stock: {{item.getInStock()}}</p>    
+        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>    
+        <p>Tags: {{item.getTags()}}</p>    
+        <p>Rating: {{item.getRating()}}</p> 
+        <p>{{item.getReviewCount()}} Reviews</p>   
+        <div *ngFor="let review of item.getReviews()">
+            <p>Title: {{review.getTitle()}}</p>
+            <p>Rating:</p>
+            <span *ngFor="let in of counter(review.getRating())">
+                <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=1% height="auto">
+            </span>
+            <p>Description: {{review.getDescription()}}</p>
+        </div>
+        <hr class="mb-4">
+    </div>
 </div>

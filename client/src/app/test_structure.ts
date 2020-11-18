@@ -20,11 +20,17 @@ export class Review {
     this.rating = data["rating"];
   }
 
-  constructor(title: string, description: string, rating: number) {
-    this.title = title;
-    this.description = description;
-    this.rating = rating;
+  constructor(data) {
+    this.title = data.title;
+    this.description = data.description;
+    this.rating = data.rating;
   }
+
+  // constructor(title: string, description: string, rating: number) {
+  //   this.title = title;
+  //   this.description = description;
+  //   this.rating = rating;
+  // }
 }
 export class Item {
   private _id: string;
@@ -49,8 +55,10 @@ export class Item {
   public getTags(): string[] { return this.tags; }
   public getRating(): number { return this.rating; }
   public getReviews(): Review[] { return this.reviews; }
+  public getReviewCount(): number { return this.reviews.length; }
 
-  construct(data) {
+
+  constructor(data) {
     this._id = data["_id"];
     this.itemName = data["itemName"];
     this.imageURLs = data["imageURLs"];
@@ -60,19 +68,23 @@ export class Item {
     this.daysToArrive = data["daysToArrive"];
     this.tags = data["tags"];
     this.rating = data["rating"];
-    this.reviews = data["reviews"];
+    this.reviews = [];
+    //Reviews Population
+    for (let i = 0; i<data["reviews"].length;i++){
+    this.reviews.push(new Review(data["reviews"][i]));
+  }
   }
 
-  constructor(itemName: string, imageURLs: string[], Price: number, description: string, inStock: number, daysToArrive: number, tags: string[], rating: number) {
-    this.itemName = itemName;
-    this.imageURLs = imageURLs;
-    this.Price = Price;
-    this.description = description;
-    this.inStock = inStock;
-    this.daysToArrive = daysToArrive;
-    this.tags = tags;
-    this.rating = rating;
-  }
+  // constructor(itemName: string, imageURLs: string[], Price: number, description: string, inStock: number, daysToArrive: number, tags: string[], rating: number) {
+  //   this.itemName = itemName;
+  //   this.imageURLs = imageURLs;
+  //   this.Price = Price;
+  //   this.description = description;
+  //   this.inStock = inStock;
+  //   this.daysToArrive = daysToArrive;
+  //   this.tags = tags;
+  //   this.rating = rating;
+  // }
 
 }
 export class CartItem {

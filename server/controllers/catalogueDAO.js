@@ -43,8 +43,10 @@ var viewAllProducts = (req, res) => {
     Product.find({}, (err, result) => {
         if (err)
             res.json({ "token": "false", "msg": "Error, could not retrieve catalogue....." });
-        else
+        else{
+            //console.log(result);
             res.json({ "token": "true", "content": result });
+        }
     });
 }
 var findProductsByName = (req, res) => {

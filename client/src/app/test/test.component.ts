@@ -16,7 +16,8 @@ export class TestComponent implements OnInit {
   private items: Item[];
   private cart: CartItem[];
 
-  //Create Account Form Control
+  //Product Form Control
+  _id=""
   itemName="";
   imageURLs="";
   Price="";
@@ -30,8 +31,14 @@ export class TestComponent implements OnInit {
   constructor(public testService: TestServiceService) {
     this.TestConnection = new testConnection();
     this.Confirmation = new confirmation();
+    this.items = [];
+    this.users = [];
+    this.cart = [];
   }
 
+  counter(num){ //For ngFor loops
+    return new Array(num);
+  }
   ngOnInit(): void {
   }
 
@@ -41,10 +48,24 @@ export class TestComponent implements OnInit {
   getTestConnection() {
     return this.TestConnection.get_id() + " : " + this.TestConnection.getContent();
   }
-
   getConfirmation() {
     return this.Confirmation.getToken() + " : " + this.Confirmation.getMsg();
   }
+
+//#region Item management
+public getItemsArray(){return this.items;}
+// public Item_get_id(index): string { return this.items[index].get_id(); }
+//   public Item_getItemName(index): string { return this.items[index].getItemName(); }
+//   public Item_getImageURL(index): string[] { return this.items[index].getImageURLs(); }
+//   public Item_getPrice(index): number { return this.items[index].getPrice(); }
+//   public Item_getDescription(index): string { return this.items[index].getDescription(); }
+//   public Item_getInStock(index): number { return this.items[index].getInStock(); }
+//   public Item_getDaysToArrive(index): number { return this.items[index].getDaysToArrive(); }
+//   public Item_getTags(index): string[] { return this.items[index].getTags(); }
+//   public Item_getRating(index): number { return this.items[index].getRating(); }
+//   public Item_getReviews(index): Review[] { return this.items[index].getReviews(); }
+//#endregion
+
   //Catalogue
   admin_createProduct() {
     var json={
@@ -58,14 +79,15 @@ export class TestComponent implements OnInit {
       "rating":this.rating,
       "reviews":[]
     };
-    console.log(JSON.stringify(json));
+    //console.log(JSON.stringify(json));
     return this.testService.admin_createProduct(json).subscribe(data => this.Confirmation.construct(data));
   }
   viewAllProducts() {
     return this.testService.viewAllProducts().subscribe(data => {
-      this.items = null;
-      for (let i = 0; i < data.length; i++) {
-        this.items[i] = data[i];
+      //console.log(data);
+      this.items = [];
+      for (let i = 0; i < data.content.length; i++) {
+        this.items.push(new Item(data.content[i]));
       }
     });
   }
@@ -79,9 +101,9 @@ export class TestComponent implements OnInit {
   }
   findProductsById(_id) {
     return this.testService.findProductsById(_id).subscribe(data => {
-      this.items = null;
+      this.items = [];
       for (let i = 0; i < data.length; i++) {
-        this.items[i] = data[i];
+        this.items.push(data[i]);
       }
     });
   }
@@ -93,8 +115,8 @@ export class TestComponent implements OnInit {
       }
     });
   }
-  admin_UpdateProduct(_id, item: Item) {
-    return this.testService.admin_UpdateProduct(_id, item).subscribe(data => this.Confirmation.construct(data));
+  admin_UpdateProduct(_id) {
+    return this.testService.admin_UpdateProduct(_id, this.items[0]).subscribe(data => this.Confirmation.construct(data));
 
   }
   admin_DeleteProduct(_id) {

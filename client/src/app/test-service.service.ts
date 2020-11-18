@@ -19,11 +19,11 @@ export class TestServiceService {
   testConnection(): Observable<testConnection>{
     return this.httpClient.get<testConnection>("http://localhost:3000/test/");
   }
-  admin_createProduct(json):Observable<Item>{
-    return this.httpClient.post<Item>("http://localhost:3000/test/admin/createProduct/",json);
+  admin_createProduct(json):Observable<any>{
+    return this.httpClient.post<any>("http://localhost:3000/test/admin/createProduct/",json);
   }
-  viewAllProducts():Observable<Item[]>{
-    return this.httpClient.get<Item[]>("http://localhost:3000/test/viewAllProducts/");
+  viewAllProducts():Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/viewAllProducts/");
   }
   findProductsByName(name):Observable<Item[]>{
     return this.httpClient.get<Item[]>("http://localhost:3000/test/findProductsByName/"+name);
