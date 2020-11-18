@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TestServiceService } from '../test-service.service';
 import { testConnection, Item, CartItem, Review, confirmation, User, Admin } from '../test_structure'
 
@@ -32,7 +33,10 @@ export class TestComponent implements OnInit {
   _name = ""
   _tag = ""
 
-  constructor(public testService: TestServiceService) {
+  _userName=""
+  _password=""
+
+  constructor(public testService: TestServiceService,private router:Router) {
     this.TestConnection = new testConnection();
     this.Confirmation = new confirmation();
     this.items = [];
@@ -142,8 +146,22 @@ export class TestComponent implements OnInit {
   }
 
   //User
-  login(userName, password) {
-    return this.testService.login(userName, password).subscribe(data => this.Confirmation.construct(data));
+  login() {
+    return this.testService.login(this._userName, this._password).subscribe(data => {
+      if (data.token=="false"){
+        sessionStorage.clear();
+      }
+      else if (data.token=="user"){
+        sessionStorage.setItem('userType',"user");
+        sessionStorage.setItem('userName',data.content.userName);
+        this.router.navigate(['/']); //Go to homepage, now signed in
+      }
+      else if (data.token=="admin"){
+        sessionStorage.setItem('userType',"admin");
+        sessionStorage.setItem('userName',data.content.userName);
+        this.router.navigate(['/admin']);  //Go to admin page, now signed in
+      }
+    });
   }
   createUser(user: User) {
     return this.testService.createUser(user).subscribe(data => this.Confirmation.construct(data));

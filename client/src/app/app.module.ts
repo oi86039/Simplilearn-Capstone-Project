@@ -21,7 +21,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -47,7 +47,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [TestServiceService, HttpClientModule],
   bootstrap: [RootComponent],

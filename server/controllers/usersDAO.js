@@ -7,31 +7,32 @@ var Admin = require("../models/admin.model");
 //Log in functionality
 var login = (req, res) => {
     //Check if username is admin or user type.
-    Admin.findOne({ $and: [{ "userName": req.body.userName }, { "password": req.body.password }, { "userType": "admin" }] }, (err, result) => {
+    Admin.findOne({ $and: [{ "userName": req.params.userName }, { "password": req.body.password }, { "userType": "admin" }] }, (err, result) => {
         if (err) {
             res.json({ "token": "false", "msg": "Error, could not log in. Please try again....." });
             return;
         }
         else if (!result) {
-            User.findOne({ $and: [{ "userName": req.body.userName }, { "password": req.body.password }, { "userType": "user" }] }, (err, result) => {
+            User.findOne({ $and: [{ "userName": req.params.userName }, { "password": req.body.password }, { "userType": "user" }] }, (err, result) => {
                 if (err) {
                     res.json({ "token": "false", "msg": "Error, could not log in. Please try again....." });
                     return;
                 }
                 else if (!result) {
+                    console.log(req.params.userName+" | "+req.body.password)
                     res.json({ "token": "false", "msg": "Username/Password Incorrect." });
                     return;
                 }
                 else {
                     //Sign into user homepage w/ res.redirect
-                    res.json({ "token": "true", "msg": "User account signed into successfully" });
+                    res.json({ "token": "user", "content": {"userName":result.userName}});
                     return;
                 }
             });
         }
         else {
             //Sign into admin portal w/ res.redirect
-            res.json({ "token": "true", "msg": "Admin account signed into successfully" });
+            res.json({ "token": "admin", "content": {"userName":result.userName} });
             return;
         }
     });

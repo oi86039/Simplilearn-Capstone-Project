@@ -36,6 +36,10 @@
 <input type="text" class="form-control" [(ngModel)]="_tag" placeholder="_tag">
 <button (click)="findProductsByTags()">Find Products By Tag</button>
 
+<input type="text" class="form-control" [(ngModel)]="_userName" placeholder="_userName">
+<input type="text" class="form-control" [(ngModel)]="_password" placeholder="_password">
+<button (click)="login()">Log in</button>
+
     <!--Item display-->
     <hr class="mb-4">
     <div *ngFor="let item of getItemsArray()">

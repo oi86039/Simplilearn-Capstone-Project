@@ -43,7 +43,7 @@ export class TestServiceService {
 
   //User
   login(userName,password):Observable<any>{
-    return this.httpClient.post<any>("http://localhost:3000/test/login/",{"userName":userName,"password":password});
+    return this.httpClient.post<any>("http://localhost:3000/test/login/"+userName,{"password":password});
   }
   createUser(user:User):Observable<any>{
     return this.httpClient.put<any>("http://localhost:3000/test/createUser/",user);
