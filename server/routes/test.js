@@ -16,7 +16,7 @@ router.delete("/admin/deleteProduct/:_id", catalogueDAO.admin_DeleteProduct)
 
 //User
 router.post("/login/:userName", usersDAO.login); //param comes from angular, not url
-router.put("/createUser", usersDAO.createUser); //param comes from angular, not url
+router.post("/createUser", usersDAO.createUser); //param comes from angular, not url
 router.put("/admin/createUser", usersDAO.admin_createUser); //param comes from angular, not url
 router.get("/admin/viewAllUsers", usersDAO.admin_viewAllUsers);
 router.get("/admin/findUserByName/:name", usersDAO.admin_findUserByName);

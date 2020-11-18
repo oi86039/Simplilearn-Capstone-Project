@@ -53,7 +53,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item" *ngIf="signedIn()">
-                <a class="nav-link active" [routerLink]="'/profile'">Welcome, Profile!</a>
+                <a class="nav-link active" [routerLink]="'/profile'">Welcome, {{getUserName()}}!</a>
             </li>
             <li class="nav-item active">
                 <!--Redirect to Login/Signup if no session-->
@@ -63,7 +63,7 @@
                 </a>
             </li>
             <li class="nav-item" *ngIf="signedIn()">
-                <a class="nav-link active" [routerLink]="'/'">Sign out</a>
+                <button class="btn btn-link nav-link active" (click)="signOut()">Sign out</button>
             </li>
         </ul>
     </div>

@@ -14,8 +14,11 @@ export class NavbarComponent implements OnInit {
   constructor(private router:Router) { 
     this.searchOn=false;
     //Check if signed in
+    if (sessionStorage.getItem('userType')=="admin")
+    this.router.navigate(['/admin'])
     if (sessionStorage.getItem('userType')=="user")
     this.signed_in=true; //based on session
+
   }
 
   ngOnInit(): void {

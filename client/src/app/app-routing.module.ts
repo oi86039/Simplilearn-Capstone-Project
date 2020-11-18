@@ -11,6 +11,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
+import { UnknownComponent } from './unknown/unknown.component';
 
 const routes: Routes = [ 
     {path:'',component: HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
     {path:'cart',component: CartComponent},
     {path:'profile',component: ProfileComponent},
     {path:'checkout',component: CheckoutComponent},
+    {path:'404',component:UnknownComponent},
     {path:'test',component: TestComponent}
   ];
 

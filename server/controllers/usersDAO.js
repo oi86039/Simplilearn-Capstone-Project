@@ -19,20 +19,20 @@ var login = (req, res) => {
                     return;
                 }
                 else if (!result) {
-                    console.log(req.params.userName+" | "+req.body.password)
+                    console.log(req.params.userName + " | " + req.body.password)
                     res.json({ "token": "false", "msg": "Username/Password Incorrect." });
                     return;
                 }
                 else {
                     //Sign into user homepage w/ res.redirect
-                    res.json({ "token": "user", "content": {"userName":result.userName}});
+                    res.json({ "token": "user", "content": { "userName": result.userName } });
                     return;
                 }
             });
         }
         else {
             //Sign into admin portal w/ res.redirect
-            res.json({ "token": "admin", "content": {"userName":result.userName} });
+            res.json({ "token": "admin", "content": { "userName": result.userName } });
             return;
         }
     });
@@ -80,7 +80,11 @@ var createUser = (req, res) => {
             //Ready to save record to MongoDB
             u1.save((err, result2) => {
                 if (err) res.json({ "token": "false", "msg": "Error, user not created....." });
-                else res.json({ "token": "true", "msg": "User added successfully..... Exitting...." });
+                else res.json({
+                    "token": "true", "content": {
+                        userName: req.body.userName
+                    }
+                });
             });
         }
     });
@@ -253,4 +257,4 @@ var admin_deleteUser = (req, res) => {
 }
 //#endregion
 
-module.exports = {login,createUser,admin_createUser,admin_viewAllUsers,admin_findUserByName,admin_findUserById,admin_updateUser,addShippingDetails,addBillingDetails,admin_deleteUser};
+module.exports = { login, createUser, admin_createUser, admin_viewAllUsers, admin_findUserByName, admin_findUserById, admin_updateUser, addShippingDetails, addBillingDetails, admin_deleteUser };

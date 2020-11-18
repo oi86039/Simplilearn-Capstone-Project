@@ -35,6 +35,8 @@ export class TestComponent implements OnInit {
 
   _userName=""
   _password=""
+  _email=""
+  _phone=""
 
   constructor(public testService: TestServiceService,private router:Router) {
     this.TestConnection = new testConnection();
@@ -163,8 +165,14 @@ export class TestComponent implements OnInit {
       }
     });
   }
-  createUser(user: User) {
-    return this.testService.createUser(user).subscribe(data => this.Confirmation.construct(data));
+  createUser() {
+    let json = {
+    "userName": this._userName,
+    "password": this._password,
+    "email": this._email,
+    "phone": this._phone
+    }; 
+    return this.testService.createUser(json).subscribe(data => this.Confirmation.construct(data));
   }
   admin_createUser(user: User) {
     return this.testService.admin_createUser(user).subscribe(data => this.Confirmation.construct(data));
