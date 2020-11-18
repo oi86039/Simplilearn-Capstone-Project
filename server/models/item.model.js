@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 mongoose.pluralize(null); //avoid a post fix for the collection (?)
 
 var itemSchema = mongoose.Schema({
-    "_Id": String,
+    "_id": String,
     "itemName": String,
     "imageURLs": [{ type: String }],
     "Price": Number,

@@ -1,4 +1,5 @@
 const { strict } = require("assert"); //Use strict mode error checking
+var mongoose = require('mongoose');
 
 //Catalogue data access object (DAO)
 var Product = require("../models/item.model");
@@ -9,23 +10,28 @@ var testConnection = (req, res) => {
 }
 
 //#region Create
-//Admin function
+//Admin function - Post uses req.body
 var admin_createProduct = (req, res) => {
-    //create product document instance/reference
+    //create product document instance/reference (all properties must be present in order to update the database)
     var p1 = new Product({
-        "itemName": req.params.Item.itemName,
-        "imageURLs": req.params.Item.imageURLs,
-        "Price": req.params.Item.Price,
-        "description": req.params.Item.description,
-        "inStock": req.params.Item.inStock,
-        "daysToArrive": req.params.Item.daysToArrive,
-        "tags": req.params.Item.tags,
-        "rating": req.params.Item.rating,
-        "reviews": req.params.Item.reviews
+        "_id": mongoose.mongo.ObjectId(),
+        "itemName": req.body.itemName,
+        "imageURLs": req.body.imageURLs,
+        "Price": req.body.Price,
+        "description": req.body.description,
+        "inStock": req.body.inStock,
+        "daysToArrive": req.body.daysToArrive,
+        "tags": req.body.tags,
+        "rating": req.body.rating,
+        "reviews": []
     });
+    //console.log(p1);
     //Ready to save record to MongoDB
     p1.save((err, result) => {
-        if (err) {res.json({ "token": "false", "msg": "Error, item not created....." })}
+        if (err) {
+            res.json({ "token": "false", "msg": "Error, item not created....." });
+            console.log(err);
+        }
         else res.json({ "token": "true", "msg": "item created successfully....." });
     });
 }

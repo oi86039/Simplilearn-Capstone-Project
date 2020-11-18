@@ -17,15 +17,15 @@ export class TestComponent implements OnInit {
   private cart: CartItem[];
 
   //Create Account Form Control
-  itemName:string;
-  imageURLs:string;
-  Price:number;
-  description:string;
-  inStock:number;
-  daysToArrive:number;
-  tags:string;
-  rating:number;
-  reviews:string;
+  itemName="";
+  imageURLs="";
+  Price="";
+  description="";
+  inStock="";
+  daysToArrive="";
+  tags="";
+  rating="";
+  reviews="";
 
   constructor(public testService: TestServiceService) {
     this.TestConnection = new testConnection();
@@ -47,16 +47,19 @@ export class TestComponent implements OnInit {
   }
   //Catalogue
   admin_createProduct() {
-    var item=new Item(
-      this.itemName,
-      [this.imageURLs],
-      this.Price,
-      this.description,
-      this.inStock,
-      this.daysToArrive,
-      [this.tags],
-      this.rating);
-    return this.testService.admin_createProduct(Item).subscribe(data => this.Confirmation.construct(data));
+    var json={
+      "itemName":this.itemName,
+      "imageURLs":[this.imageURLs],
+      "Price":this.Price,
+      "description":this.description,
+      "inStock":this.inStock,
+      "daysToArrive":this.daysToArrive,
+      "tags":[this.tags],
+      "rating":this.rating,
+      "reviews":[]
+    };
+    console.log(JSON.stringify(json));
+    return this.testService.admin_createProduct(json).subscribe(data => this.Confirmation.construct(data));
   }
   viewAllProducts() {
     return this.testService.viewAllProducts().subscribe(data => {

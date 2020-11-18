@@ -6,7 +6,7 @@ const router = express.Router();
 
 //Product/Catalogue
 router.get("/", catalogueDAO.testConnection);
-router.put("/admin/createProduct", catalogueDAO.admin_createProduct);
+router.post("/admin/createProduct", catalogueDAO.admin_createProduct);
 router.get("/viewAllProducts", catalogueDAO.viewAllProducts);
 router.get("/findProductsByName/:name", catalogueDAO.findProductsByName);
 router.get("/findProductsById/:id", catalogueDAO.findProductsById);

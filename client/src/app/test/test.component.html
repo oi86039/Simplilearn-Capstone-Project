@@ -1,18 +1,20 @@
 <app-admin-navbar></app-admin-navbar>
 <title>Test Page - Bugger</title>
-Test Connection:
-<button (click)="testConnection()">Press</button>
-<p>{{getTestConnection()}}</p>
-<!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
-Create Account
-<input type="text" [(ngModel)]="itemName" placeholder="itemName">
-<input type="text" [(ngModel)]="imageURLs" placeholder="imageURLs">
-<input type="number" [(ngModel)]="Price" placeholder="Price">
-<input type="text" [(ngModel)]="description" placeholder="description">
-<input type="number" [(ngModel)]="inStock" placeholder="inStock">
-<input type="number" [(ngModel)]="daysToArrive" placeholder="daysToArrive">
-<input type="text" [(ngModel)]="tags" placeholder="tags">
-<input type="text" [(ngModel)]="rating" placeholder="rating">
+<div class="container">
+    Test Connection:
+    <button (click)="testConnection()">Press</button>
+    <p>{{getTestConnection()}}</p>
+    <!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
+    Create Account
+    <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName">
+    <input type="text" class="form-control" [(ngModel)]="imageURLs" placeholder="imageURLs">
+    <input type="number" class="form-control" [(ngModel)]="Price" placeholder="Price">
+    <input type="text" class="form-control" [(ngModel)]="description" placeholder="description">
+    <input type="number" class="form-control" [(ngModel)]="inStock" placeholder="inStock">
+    <input type="number" class="form-control" [(ngModel)]="daysToArrive" placeholder="daysToArrive">
+    <input type="text" class="form-control" [(ngModel)]="tags" placeholder="tags">
+    <input type="text" class="form-control" [(ngModel)]="rating" placeholder="rating">
 
-<button (click)="admin_createProduct()">Submit</button>
-<p>{{getConfirmation()}}</p>
+    <button (click)="admin_createProduct()">Submit</button>
+    <p>{{getConfirmation()}}</p>
+</div>

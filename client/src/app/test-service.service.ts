@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { testConnection, Item, CartItem, Review, confirmation,User,Admin } from './test_structure'
 
+//Get - Retrieve resource from server
+//Post - Send data and make resource on server
+//Put - Update resource on server
+//Delete - Delete resource on server
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,8 +19,8 @@ export class TestServiceService {
   testConnection(): Observable<testConnection>{
     return this.httpClient.get<testConnection>("http://localhost:3000/test/");
   }
-  admin_createProduct(Item):Observable<Item>{
-    return this.httpClient.put<Item>("http://localhost:3000/test/admin/createProduct/",Item);
+  admin_createProduct(json):Observable<Item>{
+    return this.httpClient.post<Item>("http://localhost:3000/test/admin/createProduct/",json);
   }
   viewAllProducts():Observable<Item[]>{
     return this.httpClient.get<Item[]>("http://localhost:3000/test/viewAllProducts/");
@@ -77,7 +82,7 @@ export class TestServiceService {
     return this.httpClient.put<confirmation>("http://localhost:3000/test/addToCart/"+user_id,product_id);
   }
   deleteFromCart(user_id,_productId):Observable<confirmation>{
-    return this.httpClient.post<confirmation>("http://localhost:3000/test/deleteFromCart/"+user_id,_productId);
+    return this.httpClient.put<confirmation>("http://localhost:3000/test/deleteFromCart/"+user_id,_productId);
   }
   emptyCart(user_id):Observable<confirmation>{
     return this.httpClient.delete<confirmation>("http://localhost:3000/test/emptyCart/"+user_id);
