@@ -17,6 +17,7 @@ export class TestComponent implements OnInit {
   private cart: CartItem[];
 
   //Product Form Control
+  __id = "" //Update product
   itemName = "";
   imageURLs = "";
   Price = "";
@@ -29,6 +30,7 @@ export class TestComponent implements OnInit {
 
   _id = ""
   _name = ""
+  _tag = ""
 
   constructor(public testService: TestServiceService) {
     this.TestConnection = new testConnection();
@@ -111,20 +113,32 @@ export class TestComponent implements OnInit {
       }
     });
   }
-  findProductsByTag(tags: string[]) {
-    return this.testService.findProductsByTag(tags).subscribe(data => {
-      this.items = null;
-      for (let i = 0; i < data.length; i++) {
-        this.items[i] = data[i];
+  findProductsByTags() {
+    return this.testService.findProductsByTag(this._tag).subscribe(data => {
+      this.items = [];
+      if (data.token) {
+        for (let a of data.content)
+          this.items.push(new Item(a));
       }
     });
   }
-  admin_UpdateProduct(_id) {
-    return this.testService.admin_UpdateProduct(_id, this.items[0]).subscribe(data => this.Confirmation.construct(data));
+  admin_updateProduct() {  //No confirmation, but it does work.
+    var json = {
+      "itemName": this.itemName,
+      "imageURLs": [this.imageURLs],
+      "Price": this.Price,
+      "description": this.description,
+      "inStock": this.inStock,
+      "daysToArrive": this.daysToArrive,
+      "tags": [this.tags],
+      "rating": this.rating,
+      "reviews": []
+    };
+    return this.testService.admin_UpdateProduct(this.__id,json).subscribe(data => this.Confirmation.construct(data));
 
   }
-  admin_DeleteProduct(_id) {
-    return this.testService.admin_DeleteProduct(_id).subscribe(data => this.Confirmation.construct(data));
+  admin_deleteProduct() { //No confirmation, but it does work.
+    return this.testService.admin_DeleteProduct(this.__id).subscribe(data => this.Confirmation.construct(data));
   }
 
   //User

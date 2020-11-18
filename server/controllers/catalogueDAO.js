@@ -71,7 +71,7 @@ var findProductsById = (req, res) => {
 }
 var findProductsByTag = (req, res) => {
     //Find model in db // case insensitive
-    Product.find({ "tags": { $regex: new RegExp(req.body.tag), $options: 'i' } }, (err, result) => {
+    Product.find({ "tags": { $regex: new RegExp(req.params._tag), $options: 'i' } }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else res.json({ "token": "true", "content": result });
     })
@@ -81,7 +81,7 @@ var findProductsByTag = (req, res) => {
 //#region Update
 //Search by id and update with given attributes
 var admin_UpdateProduct = (req, res) => {
-    Product.update({ _id: req.body._id }, {
+    Product.update({ _id: req.params._id }, {
         $set:
         {
             itemName: req.body.itemName,
@@ -92,7 +92,6 @@ var admin_UpdateProduct = (req, res) => {
             daysToArrive: req.body.daysToArrive,
             tags: req.body.tags,
             rating: req.body.rating,
-            reviews: req.body.reviews
         }
     }, (err, result) => {
         if (err) throw err;
@@ -107,7 +106,7 @@ var admin_UpdateProduct = (req, res) => {
 
 //#region Delete
 var admin_DeleteProduct = (req, res) => {
-    Product.deleteOne({ _id: req.params.id }, (err, result) => {
+    Product.deleteOne({ _id: req.params._id }, (err, result) => {
         if (err) throw err;
         if (result.deletedCount > 0) {
             if (err) res.json({ "token": "true", "msg": "Record deleted successfully" })

@@ -31,60 +31,60 @@ export class TestServiceService {
   findProductsById(_id):Observable<any>{
     return this.httpClient.get<any>("http://localhost:3000/test/findProductsById/"+_id);
   }
-  findProductsByTag(tags:string[]):Observable<any>{
-    return this.httpClient.post<any>("http://localhost:3000/test/findProductsByTag/",tags);
+  findProductsByTag(tag:string):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/findProductsByTag/"+tag);
   }
-  admin_UpdateProduct(_id,item:Item):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/admin/updateProduct/"+_id,item);
+  admin_UpdateProduct(_id,json):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/admin/updateProduct/"+_id,json);
   }
-  admin_DeleteProduct(_id):Observable<confirmation>{
-    return this.httpClient.delete<confirmation>("http://localhost:3000/test/admin/deleteProduct/"+_id);
+  admin_DeleteProduct(_id):Observable<any>{
+    return this.httpClient.delete<any>("http://localhost:3000/test/admin/deleteProduct/"+_id);
   }
 
   //User
-  login(userName,password):Observable<confirmation>{
-    return this.httpClient.post<confirmation>("http://localhost:3000/test/login/",{"userName":userName,"password":password});
+  login(userName,password):Observable<any>{
+    return this.httpClient.post<any>("http://localhost:3000/test/login/",{"userName":userName,"password":password});
   }
-  createUser(user:User):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/createUser/",user);
+  createUser(user:User):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/createUser/",user);
   }
-  admin_createUser(user:User):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/admin/createUser/",user);
+  admin_createUser(user:User):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/admin/createUser/",user);
   }
-  admin_viewAllUsers():Observable<User[]>{
-    return this.httpClient.get<User[]>("http://localhost:3000/test/admin/viewAllUsers/");
+  admin_viewAllUsers():Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/admin/viewAllUsers/");
   }
-  admin_findUserByName(name):Observable<User>{
-    return this.httpClient.get<User>("http://localhost:3000/test/admin/findUserByName/"+name);
+  admin_findUserByName(name):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/admin/findUserByName/"+name);
   }
-  admin_findUserById(_id):Observable<User>{
+  admin_findUserById(_id):Observable<any>{
     return this.httpClient.get<User>("http://localhost:3000/test/admin/findUserById/"+_id);
   }
-  admin_updateUser(_id,user:User):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/admin/updateUser/"+_id,user);
+  admin_updateUser(_id,user:User):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/admin/updateUser/"+_id,user);
   }
-  addShippingDetails(_id,details):Observable<confirmation>{
-    return this.httpClient.post<confirmation>("http://localhost:3000/test/admin/addShippingDetails/"+_id,details)
+  addShippingDetails(_id,details):Observable<any>{
+    return this.httpClient.post<any>("http://localhost:3000/test/admin/addShippingDetails/"+_id,details)
   }
   addBillingDetails(_id,details):Observable<confirmation>{
     return this.httpClient.post<confirmation>("http://localhost:3000/test/admin/addBillingDetails/"+_id,details)
   }
-  admin_deleteUser(_id):Observable<confirmation>{
-    return this.httpClient.delete<confirmation>("http://localhost:3000/test/admin/deleteUser/"+_id);
+  admin_deleteUser(_id):Observable<any>{
+    return this.httpClient.delete<any>("http://localhost:3000/test/admin/deleteUser/"+_id);
   }
 
   //Cart
-  viewCart(_id):Observable<CartItem[]>{
-    return this.httpClient.get<CartItem[]>("http://localhost:3000/test/viewCart/"+_id);
+  viewCart(_id):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/viewCart/"+_id);
   }
 
-  addToCart(user_id,product_id):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/addToCart/"+user_id,product_id);
+  addToCart(user_id,product_id):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/addToCart/"+user_id,product_id);
   }
-  deleteFromCart(user_id,_productId):Observable<confirmation>{
-    return this.httpClient.put<confirmation>("http://localhost:3000/test/deleteFromCart/"+user_id,_productId);
+  deleteFromCart(user_id,_productId):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/deleteFromCart/"+user_id,_productId);
   }
-  emptyCart(user_id):Observable<confirmation>{
-    return this.httpClient.delete<confirmation>("http://localhost:3000/test/emptyCart/"+user_id);
+  emptyCart(user_id):Observable<any>{
+    return this.httpClient.delete<any>("http://localhost:3000/test/emptyCart/"+user_id);
   }
 }

@@ -6,6 +6,7 @@
     <p>{{getTestConnection()}}</p>
     <!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
     Create Account
+    <input type="text" class="form-control" [(ngModel)]="__id" placeholder="__id (For updating instead of creating)">
     <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName">
     <input type="text" class="form-control" [(ngModel)]="imageURLs" placeholder="imageURLs">
     <input type="number" class="form-control" [(ngModel)]="Price" placeholder="Price">
@@ -15,7 +16,9 @@
     <input type="text" class="form-control" [(ngModel)]="tags" placeholder="tags">
     <input type="text" class="form-control" [(ngModel)]="rating" placeholder="rating">
 
-    <button (click)="admin_createProduct()">Submit</button>
+    <button (click)="admin_createProduct()">Create Product</button>
+    <button (click)="admin_updateProduct()">Update Product</button>
+    <button (click)="admin_deleteProduct()">Delete Product</button>
     <p>{{getConfirmation()}}</p>
 
     <!--View All Products-->
@@ -28,6 +31,10 @@
     <!--Find by _id-->
     <input type="text" class="form-control" [(ngModel)]="_id" placeholder="_id">
     <button (click)="findProductsById()">Find Products By Id</button>
+
+<!--Find by _tags-->
+<input type="text" class="form-control" [(ngModel)]="_tag" placeholder="_tag">
+<button (click)="findProductsByTags()">Find Products By Tag</button>
 
     <!--Item display-->
     <hr class="mb-4">
