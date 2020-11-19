@@ -64,10 +64,10 @@ export class TestServiceService {
     return this.httpClient.put<any>("http://localhost:3000/test/admin/updateUser/"+_id,user);
   }
   addShippingDetails(_id,details):Observable<any>{
-    return this.httpClient.post<any>("http://localhost:3000/test/admin/addShippingDetails/"+_id,details)
+    return this.httpClient.post<any>("http://localhost:3000/test/admin/addShippingDetails/"+_id,{"details":details})
   }
   addBillingDetails(_id,details):Observable<confirmation>{
-    return this.httpClient.post<confirmation>("http://localhost:3000/test/admin/addBillingDetails/"+_id,details)
+    return this.httpClient.post<confirmation>("http://localhost:3000/test/admin/addBillingDetails/"+_id,{"details":details})
   }
   admin_deleteUser(_id):Observable<any>{
     return this.httpClient.delete<any>("http://localhost:3000/test/admin/deleteUser/"+_id);
@@ -79,10 +79,10 @@ export class TestServiceService {
   }
 
   addToCart(userName,product_id):Observable<any>{
-    return this.httpClient.put<any>("http://localhost:3000/test/addToCart/"+userName,product_id);
+    return this.httpClient.put<any>("http://localhost:3000/test/addToCart/"+userName,{"product_id":product_id});
   }
-  deleteFromCart(userName,_productId):Observable<any>{
-    return this.httpClient.put<any>("http://localhost:3000/test/deleteFromCart/"+userName,_productId);
+  deleteFromCart(userName,product_id):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/deleteFromCart/"+userName,{"product_id":product_id});
   }
   emptyCart(userName):Observable<any>{
     return this.httpClient.delete<any>("http://localhost:3000/test/emptyCart/"+userName);

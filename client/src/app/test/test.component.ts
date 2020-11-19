@@ -233,11 +233,20 @@ export class TestComponent implements OnInit {
     }
     return this.testService.addToCart(sessionStorage.getItem('userName'), this._id).subscribe(data => this.Confirmation.construct(data));
   }
-  deleteFromCart(user_id, product_id) {
-    return this.testService.deleteFromCart(user_id, product_id).subscribe(data => this.Confirmation.construct(data));
+  deleteFromCart() {
+    if (!sessionStorage.getItem('userName')){
+      console.log("Error: Not signed in!")
+      return null;
+    }
+    return this.testService.deleteFromCart(sessionStorage.getItem('userName'), this._id).subscribe(data => this.Confirmation.construct(data));
   }
-  emptyCart(user_id) {
-    return this.testService.emptyCart(user_id).subscribe(data => this.Confirmation.construct(data));
+  emptyCart() {
+    if (!sessionStorage.getItem('userName')){
+      console.log("Error: Not signed in!")
+      return null;
+    }
+    return this.testService.emptyCart(sessionStorage.getItem('userName')).subscribe(data => this.Confirmation.construct(data));
   }
 
+  
 }

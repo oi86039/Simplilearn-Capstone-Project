@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TestServiceService } from '../test-service.service';
 import { testConnection, confirmation, User, Item, CartItem } from '../test_structure';
 
@@ -14,16 +15,16 @@ export class ProductsComponent implements OnInit {
   _name = ""
   _tag = ""
 
-  constructor(public testService: TestServiceService) {
+  constructor(private testService: TestServiceService, private router: Router) {
     this.viewAllProducts();
   }
 
   ngOnInit(): void {
   }
   public getItemsArray() { if (this.items == []) console.log("No results found."); else return this.items; }
-  public getItem(index:number) { if (this.items == []) console.log("No results found."); else return this.items[index]; }
+  public getItem(index: number) { if (this.items == []) console.log("No results found."); else return this.items[index]; }
 
-  getProductCount(){
+  getProductCount() {
     return this.items.length;
   }
 
@@ -37,7 +38,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   findProductsByName() {
-    if (this._name=="") return this.viewAllProducts();
+    if (this._name == "") return this.viewAllProducts();
     return this.testService.findProductsByName(this._name).subscribe(data => {
       this.items = [];
       if (data.token) {
@@ -64,7 +65,7 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
-  findProductsByTagSpecified(tag:string) {
+  findProductsByTagSpecified(tag: string) {
     return this.testService.findProductsByTag(tag).subscribe(data => {
       this.items = [];
       if (data.token) {
@@ -74,7 +75,20 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  loop(i:number){
+  loop(i: number) {
     return new Array(i);
   }
+
+  addToCart(_id) {
+    if (!sessionStorage.getItem('userName')) {
+      this.router.navigate(['/login'])
+      return null;
+    }
+    console.log(_id);
+    return this.testService.addToCart(sessionStorage.getItem('userName'), _id).subscribe(data => {
+      this.router.navigate(['/cart']);
+    });
+  }
+
+
 }

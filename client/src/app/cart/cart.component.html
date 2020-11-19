@@ -2,12 +2,25 @@
 <title>Your Cart - Bugger</title>
 <div class="container">
     <h2>Your Cart</h2>
+    <button class="btn btn-outline-danger" (click)="emptyCart()">Empty Cart</button>
     <div class="row">
         <div class="col-md-9">
-            <!--ngFor num products divided by 3-->
-            <div *ngFor="let in of getNumOfRows(); let i = index">
-                <app-cart-item></app-cart-item>
-            </div>
+            <!--Cart display-->
+    <hr class="mb-4">
+    <div class="row" *ngFor="let item of getCartArray()">
+        <img class="col-md-2" src="{{item.getImageURL()}}" width="auto" height="50%">
+        <span class="col-md-10">
+        <h5>{{item.getItemName()}}</h5>
+        <span *ngFor="let in of loop(item.getRating())">
+            <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=3% height="auto">
+        </span>
+        <p>Price: {{item.getPrice()}}</p>
+        <p>In Stock: {{item.getInStock()}}</p>
+        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>
+        <p>Quantity: {{item.getQuantity()}}</p>
+    </span>
+        <hr class="mb-4">
+    </div>
         </div>
         <div class="col-md-3">
             <button class="btn btn-lg btn-primary" [routerLink]="'/checkout'">Proceed to checkout &raquo;</button>

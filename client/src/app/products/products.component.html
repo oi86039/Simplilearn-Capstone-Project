@@ -42,7 +42,7 @@
                     <h5>Tags: {{item.getTags()}}</h5>
                 </div>
                 <div class="col-md-3">
-                    <a class="btn btn-lg btn-primary">Add to Cart <img alt="Cart" src="../../assets/Cart.png" width="auto" height="25px"
+                    <a class="btn btn-lg btn-primary" (click)="addToCart(item.get_id())">Add to Cart <img alt="Cart" src="../../assets/Cart.png" width="auto" height="25px"
                         style="margin-bottom:4px; margin-left:4px"></a>
                 </div>
             </div>
