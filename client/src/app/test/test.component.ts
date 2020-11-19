@@ -76,6 +76,8 @@ export class TestComponent implements OnInit {
   //   public Item_getReviews(index): Review[] { return this.items[index].getReviews(); }
   //#endregion
 
+  public getCartArray() { if (this.cart == []) console.log("No results found."); else return this.cart; }
+
   //Catalogue
   admin_createProduct() {
     var json = {
@@ -181,7 +183,7 @@ export class TestComponent implements OnInit {
     return this.testService.admin_viewAllUsers().subscribe(data => {
       this.users = null;
       for (let i = 0; i < data.length; i++) {
-        this.users[i] = data[i];
+        this.users = data[i];
       }
     });
   }
@@ -211,17 +213,25 @@ export class TestComponent implements OnInit {
   }
 
   //Cart
-  viewCart(_id) {
-    return this.testService.viewCart(_id).subscribe(data => {
-      this.cart = null;
-      for (let i = 0; i < data.length; i++) {
-        this.cart[i] = data[i];
+  viewCart() {
+    if (!sessionStorage.getItem('userName')){
+      console.log("Error: Not signed in!")
+      return null;
+    }
+    return this.testService.viewCart(sessionStorage.getItem('userName')).subscribe(data => {
+      this.cart = [];
+      for (let i = 0; i < data.content.length; i++) {
+        this.cart.push(new CartItem(data.content[i]));
       }
     });
   }
 
-  addToCart(user_id, product_id) {
-    return this.testService.addToCart(user_id, product_id).subscribe(data => this.Confirmation.construct(data));
+  addToCart() {
+    if (!sessionStorage.getItem('userName')){
+      console.log("Error: Not signed in!")
+      return null;
+    }
+    return this.testService.addToCart(sessionStorage.getItem('userName'), this._id).subscribe(data => this.Confirmation.construct(data));
   }
   deleteFromCart(user_id, product_id) {
     return this.testService.deleteFromCart(user_id, product_id).subscribe(data => this.Confirmation.construct(data));

@@ -27,10 +27,10 @@ router.put("/addBillingDetails", usersDAO.addBillingDetails); //param comes from
 router.delete("/admin/deleteUser/:id", usersDAO.admin_deleteUser)
 
 //Cart
-router.get("/viewCart/:user_id", cartDAO.viewCart);
-router.put("/addToCart/:user_id/:product_id", cartDAO.addToCart);
-router.delete("/deleteFromCart/:user_id", cartDAO.deleteFromCart); //param comes from angular, not url
-router.delete("/emptyCart/:user_id", cartDAO.emptyCart);
+router.get("/viewCart/:userName", cartDAO.viewCart);
+router.put("/addToCart/:userName/", cartDAO.addToCart);
+router.delete("/deleteFromCart/:userName", cartDAO.deleteFromCart); //param comes from angular, not url
+router.delete("/emptyCart/:userName", cartDAO.emptyCart);
 
 //module.exports=[viewCart,addToCart,deleteFromCart,emptyCart];
 

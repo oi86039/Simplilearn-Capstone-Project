@@ -20,7 +20,7 @@ var userSchema = mongoose.Schema({
     "balance": Number,
     "cart": [
         {
-            "_Id": String,
+            "_id": String,
             "itemName": String,
             "imageURL": String,
             "Price": Number,
@@ -31,7 +31,7 @@ var userSchema = mongoose.Schema({
     ],
     "Purchase History": [
         {
-            "_Id": String,
+            "_id": String,
             "itemName": String,
             "imageURL": String,
             "Price": Number,
@@ -42,7 +42,7 @@ var userSchema = mongoose.Schema({
     ],
     "Viewing History": [
         {
-            "_Id": String,
+            "_id": String,
             "itemName": String,
             "imageURL": String,
             "Price": Number,

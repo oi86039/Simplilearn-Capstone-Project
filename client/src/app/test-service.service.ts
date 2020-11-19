@@ -74,17 +74,17 @@ export class TestServiceService {
   }
 
   //Cart
-  viewCart(_id):Observable<any>{
-    return this.httpClient.get<any>("http://localhost:3000/test/viewCart/"+_id);
+  viewCart(userName):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:3000/test/viewCart/"+userName);
   }
 
-  addToCart(user_id,product_id):Observable<any>{
-    return this.httpClient.put<any>("http://localhost:3000/test/addToCart/"+user_id,product_id);
+  addToCart(userName,product_id):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/addToCart/"+userName,product_id);
   }
-  deleteFromCart(user_id,_productId):Observable<any>{
-    return this.httpClient.put<any>("http://localhost:3000/test/deleteFromCart/"+user_id,_productId);
+  deleteFromCart(userName,_productId):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/test/deleteFromCart/"+userName,_productId);
   }
-  emptyCart(user_id):Observable<any>{
-    return this.httpClient.delete<any>("http://localhost:3000/test/emptyCart/"+user_id);
+  emptyCart(userName):Observable<any>{
+    return this.httpClient.delete<any>("http://localhost:3000/test/emptyCart/"+userName);
   }
 }

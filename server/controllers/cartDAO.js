@@ -9,25 +9,28 @@ var Product = require("../models/item.model");
 //#region Retrieve
 var viewCart = (req, res) => {
     //Find model in db // case insensitive
-    User.find({ $and: [{ "_id": { $regex: new RegExp(req.body._id), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
+    User.findOne({ $and: [{ "userName": { $regex: new RegExp(req.params.userName), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve user/cart specified....." });
-        else res.json({ "token": "true", "content": result.cart });
+        else {
+            console.log(result.cart);
+            res.json({ "token": "true", "content": result.cart });}
     });
 }
 //#endregion
 //#region Update
 var addToCart = (req, res) => {
     //Get product
-    Product.find({ "_id": { $regex: new RegExp(req.body._id), $options: 'i' } }, (err, result) => {
+    Product.findOne({ "_id": { $regex: new RegExp(req.body.product_id), $options: 'i' } }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else {
+            console.log(result);            
             //Update user cart
-            User.update({ _id: req.body.user_id }, {
+            User.update({ userName: req.params.userName }, {
                 $push: {
                     cart: {
                         "_id": result._id,
                         "itemName": result.itemName,
-                        "imageURL": result.imageURL,
+                        "imageURL": result.imageURLs[0],
                         "Price": result.Price,
                         "inStock": result.inStock,
                         "daysToArrive": result.daysToArrive,
@@ -56,7 +59,7 @@ var deleteFromCart = (req, res) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else {
             //Update user cart
-            User.update({ _id: req.body.user_id }, {
+            User.update({ userName: req.params.userName }, {
                 $pull: {
                     cart: {
                         "_id": result._id
@@ -80,7 +83,7 @@ var emptyCart = (req, res) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else {
             //Update user cart
-            User.update({ _id: req.body.user_id }, {
+            User.update({ userName: req.params.userName }, {
                 $set: {
                     cart: []
                 }

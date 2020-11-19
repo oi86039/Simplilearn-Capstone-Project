@@ -110,7 +110,7 @@ export class CartItem {
   public getRating(): number { return this.rating; }
   public getQuantity(): number { return this.quantity; }
 
-  construct(data) {
+  constructor(data) {
     this._id = data["_id"];
     this.itemName = data["itemName"];
     this.imageURL = data["imageURL"];
@@ -122,17 +122,17 @@ export class CartItem {
     this.quantity = data["quantity"];
   }
 
-  constructor(_id: string, itemName: string, imageURL: string, Price: number, inStock: number, daysToArrive: number, tags: string[], rating: number, quantity: number) {
-    this._id = _id;
-    this.itemName = itemName;
-    this.imageURL = imageURL;
-    this.Price = Price;
-    this.inStock = inStock;
-    this.daysToArrive = daysToArrive;
-    this.tags = tags;
-    this.rating = rating;
-    this.quantity = quantity;
-  }
+  // constructor(_id: string, itemName: string, imageURL: string, Price: number, inStock: number, daysToArrive: number, tags: string[], rating: number, quantity: number) {
+  //   this._id = _id;
+  //   this.itemName = itemName;
+  //   this.imageURL = imageURL;
+  //   this.Price = Price;
+  //   this.inStock = inStock;
+  //   this.daysToArrive = daysToArrive;
+  //   this.tags = tags;
+  //   this.rating = rating;
+  //   this.quantity = quantity;
+  // }
 }
 
 export class Cart {

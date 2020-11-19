@@ -23,42 +23,44 @@
 
     <!--View All Products-->
     <button (click)="viewAllProducts()">View All Products</button>
+    <button (click)="viewCart()">View Cart (must be logged in)</button>
 
- <!--Find by name-->
- <input type="text" class="form-control" [(ngModel)]="_name" placeholder="_name">
- <button (click)="findProductsByName()">Find Products By Name</button>
+    <!--Find by name-->
+    <input type="text" class="form-control" [(ngModel)]="_name" placeholder="_name">
+    <button (click)="findProductsByName()">Find Products By Name</button>
 
     <!--Find by _id-->
     <input type="text" class="form-control" [(ngModel)]="_id" placeholder="_id">
     <button (click)="findProductsById()">Find Products By Id</button>
+    <button (click)="addToCart()">Add to Cart (must be logged in)</button>
 
-<!--Find by _tags-->
-<input type="text" class="form-control" [(ngModel)]="_tag" placeholder="_tag">
-<button (click)="findProductsByTags()">Find Products By Tag</button>
+    <!--Find by _tags-->
+    <input type="text" class="form-control" [(ngModel)]="_tag" placeholder="_tag">
+    <button (click)="findProductsByTags()">Find Products By Tag</button>
 
-<input type="text" class="form-control" [(ngModel)]="_userName" placeholder="_userName">
-<input type="text" class="form-control" [(ngModel)]="_password" placeholder="_password">
-<input type="text" class="form-control" [(ngModel)]="_email" placeholder="_email">
-<input type="text" class="form-control" [(ngModel)]="_phone" placeholder="_phone">
+    <input type="text" class="form-control" [(ngModel)]="_userName" placeholder="_userName">
+    <input type="text" class="form-control" [(ngModel)]="_password" placeholder="_password">
+    <input type="text" class="form-control" [(ngModel)]="_email" placeholder="_email">
+    <input type="text" class="form-control" [(ngModel)]="_phone" placeholder="_phone">
 
-<button (click)="login()">Log in</button>
-<button (click)="createUser()">Sign up</button>
+    <button (click)="login()">Log in</button>
+    <button (click)="createUser()">Sign up</button>
 
     <!--Item display-->
     <hr class="mb-4">
     <div *ngFor="let item of getItemsArray()">
         <p>_id: {{item.get_id()}}</p>
-        <p>itemName: {{item.getItemName()}}</p>    
+        <p>itemName: {{item.getItemName()}}</p>
         <div *ngFor="let url of item.getImageURLs()">
-        <img src="{{url}}" width="100px" height="auto">
-        </div>    
-        <p>Price: {{item.getPrice()}}</p>    
-        <p>Description: {{item.getDescription()}}</p>    
-        <p>In Stock: {{item.getInStock()}}</p>    
-        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>    
-        <p>Tags: {{item.getTags()}}</p>    
-        <p>Rating: {{item.getRating()}}</p> 
-        <p>{{item.getReviewCount()}} Reviews</p>   
+            <img src="{{url}}" width="100px" height="auto">
+        </div>
+        <p>Price: {{item.getPrice()}}</p>
+        <p>Description: {{item.getDescription()}}</p>
+        <p>In Stock: {{item.getInStock()}}</p>
+        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>
+        <p>Tags: {{item.getTags()}}</p>
+        <p>Rating: {{item.getRating()}}</p>
+        <p>{{item.getReviewCount()}} Reviews</p>
         <div *ngFor="let review of item.getReviews()">
             <p>Title: {{review.getTitle()}}</p>
             <p>Rating:</p>
@@ -67,6 +69,23 @@
             </span>
             <p>Description: {{review.getDescription()}}</p>
         </div>
+        <hr class="mb-4">
+    </div>
+    <!--Cart display-->
+    <hr class="mb-4">
+    <div *ngFor="let item of getCartArray()">
+        <p>_id: {{item.get_id()}}</p>
+        <p>itemName: {{item.getItemName()}}</p>
+        <img src="{{item.getImageURL()}}" width="100px" height="auto">
+        <p>Price: {{item.getPrice()}}</p>
+        <p>In Stock: {{item.getInStock()}}</p>
+        <p>Days To Arrive: {{item.getDaysToArrive()}}</p>
+        <p>Tags: {{item.getTags()}}</p>
+        <p>Rating:</p>
+        <span *ngFor="let in of counter(item.getRating())">
+            <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=1% height="auto">
+        </span>
+        <p>Quantity: {{item.getQuantity()}}</p>
         <hr class="mb-4">
     </div>
 </div>

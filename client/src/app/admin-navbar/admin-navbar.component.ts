@@ -17,8 +17,8 @@ export class AdminNavbarComponent implements OnInit {
     //Check if signed in
     if (sessionStorage.getItem('userType')=="admin")
     this.signed_in=true;
-    if (sessionStorage.getItem('userType')=="user")
-    this.router.navigate(['/404'])
+    //if (sessionStorage.getItem('userType')=="user")
+    //this.router.navigate(['/404'])
   }
 
   ngOnInit(): void {
