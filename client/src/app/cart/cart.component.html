@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
-<title>Your Cart - Bugger</title>
+<title>Your Cart ({{getCartCount()}}) - Bugger</title>
 <div class="container">
     <h2>Your Cart ({{getCartCount()}})</h2>
-    <button class="btn btn-outline-danger" (click)="emptyCart()">Empty Cart</button>
+    <button class="btn btn-outline-danger" *ngIf="getCartCount()>0" (click)="emptyCart()">Empty Cart</button>
     <div class="row">
         <div class="col-md-8">
             <!--Cart display-->
@@ -35,8 +35,8 @@
                 </li>
             </ul>
 
-            <button class="btn btn-lg btn-primary" [routerLink]="'/checkout'">Continue Shopping &raquo;</button> <br>
-            <button class="btn btn-lg btn-outline-primary" [routerLink]="'/checkout'">Proceed to checkout &raquo;</button>
+            <button class="btn btn-lg btn-primary" [routerLink]="'/products'">Continue Shopping &raquo;</button> <br>
+            <button *ngIf="getCartCount()>0" class="btn btn-lg btn-outline-primary" [routerLink]="'/checkout'">Proceed to checkout &raquo;</button>
         </div>
     </div>
     <br><br>

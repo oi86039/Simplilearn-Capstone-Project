@@ -23,6 +23,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
 import { AdminNavbarComponent } from './admin-navbar/admin-navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UnknownComponent } from './unknown/unknown.component';
+import { ReceiptComponent } from './receipt/receipt.component';
 //import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -43,7 +44,8 @@ import { UnknownComponent } from './unknown/unknown.component';
     CountriesComponent,
     CartItemComponent,
     AdminNavbarComponent,
-    UnknownComponent
+    UnknownComponent,
+    ReceiptComponent
   ],
   imports: [
     BrowserModule,

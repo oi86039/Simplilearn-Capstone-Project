@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsComponent } from './products/products.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReceiptComponent } from './receipt/receipt.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestComponent } from './test/test.component';
 import { UnknownComponent } from './unknown/unknown.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path:'cart',component: CartComponent},
     {path:'profile',component: ProfileComponent},
     {path:'checkout',component: CheckoutComponent},
+    {path:'receipt',component:ReceiptComponent},
     {path:'404',component:UnknownComponent},
     {path:'test',component: TestComponent}
   ];

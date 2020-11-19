@@ -43,6 +43,14 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
+  emptyCart() {
+    if (!sessionStorage.getItem('userName')){
+      console.log("Error: Not signed in!")
+      return null;
+    }
+    return this.testService.emptyCart(sessionStorage.getItem('userName')).subscribe(data => {});
+  }
+
   getTotalPrice() {
     return this.total;
   }
