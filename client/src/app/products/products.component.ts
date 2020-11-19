@@ -84,7 +84,7 @@ export class ProductsComponent implements OnInit {
       this.router.navigate(['/login'])
       return null;
     }
-    console.log(_id);
+    //console.log(_id);
     return this.testService.addToCart(sessionStorage.getItem('userName'), _id).subscribe(data => {
       this.router.navigate(['/cart']);
     });

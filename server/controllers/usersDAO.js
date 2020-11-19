@@ -19,7 +19,7 @@ var login = (req, res) => {
                     return;
                 }
                 else if (!result) {
-                    console.log(req.params.userName + " | " + req.body.password)
+                    //console.log(req.params.userName + " | " + req.body.password)
                     res.json({ "token": "false", "msg": "Username/Password Incorrect." });
                     return;
                 }

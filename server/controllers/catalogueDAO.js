@@ -65,7 +65,7 @@ var findProductsById = (req, res) => {
             //console.log(err);
             res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });}
         else {
-            console.log(req.params._id +" | "+ result);
+            //console.log(req.params._id +" | "+ result);
             res.json({ "token": "true", "content": result });}
     })
 }

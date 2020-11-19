@@ -12,7 +12,7 @@ var viewCart = (req, res) => {
     User.findOne({ $and: [{ "userName": { $regex: new RegExp(req.params.userName), $options: 'i' } }, { "userType": "user" }] }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve user/cart specified....." });
         else {
-            console.log(result.cart);
+            //console.log(result.cart);
             res.json({ "token": "true", "content": result.cart });
         }
     });
@@ -24,8 +24,8 @@ var addToCart = (req, res) => {
     Product.findOne({ _id: req.body.product_id }, (err, result) => {
         if (err) res.json({ "token": "false", "msg": "Error, could not retrieve product specified....." });
         else {
-            console.log(req.body.product_id);
-            console.log(result);
+            //console.log(req.body.product_id);
+            //console.log(result);
             //Update user cart
             User.update({ userName: req.params.userName }, {
                 $push: {
