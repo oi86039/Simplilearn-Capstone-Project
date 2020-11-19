@@ -1,5 +1,6 @@
 <title>Checkout - Bugger</title>
-<a class="navbar h5" (click)="back()">< Go Back</a>
+<a class="navbar h5" (click)="back()">
+    < Go Back</a>
         <div class="container">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="../../assets/Logo_1.png" alt="" width="72" height="72">
@@ -14,33 +15,21 @@
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-muted">Your cart</span>
-                        <span class="badge badge-secondary badge-pill">3</span>
+                        <span class="badge badge-secondary badge-pill">{{getCartCount()}}</span>
                     </h4>
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <ul class="list-group mb-3" >
+                        <li *ngFor="let item of getCartArray()" class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Product name</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$12</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Second product</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Third item</h6>
-                                <small class="text-muted">Brief description</small>
-                            </div>
-                            <span class="text-muted">$5</span>
+                                <h6 class="my-0">{{item.getItemName()}}</h6>
+                                <span *ngFor="let in of loop(item.getRating())">
+                                    <img class="mb-4" style="padding-right: 2px;" src="../../assets/Star.png" width=3%
+                                        height="auto">
+                                </span>                            </div>
+                            <span class="text-muted">${{item.getPrice()}}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total (USD)</span>
-                            <strong>$25</strong>
+                            <strong>${{getTotalPrice()}}</strong>
                         </li>
                     </ul>
 
@@ -120,8 +109,9 @@
                         </div>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                          </div>
+                            <label class="custom-control-label" for="save-info">Save this information for next
+                                time</label>
+                        </div>
 
                         <hr class="mb-4">
 

@@ -11,6 +11,7 @@ import { CartItem } from '../test_structure';
 export class CartComponent implements OnInit {
 
   cart: CartItem[];
+  total:number;
 
   constructor(private testService: TestServiceService, private router: Router) {
     this.viewCart();
@@ -33,8 +34,10 @@ export class CartComponent implements OnInit {
     }
     return this.testService.viewCart(sessionStorage.getItem('userName')).subscribe(data => {
       this.cart = [];
+      this.total=0;
       for (let i = 0; i < data.content.length; i++) {
         this.cart.push(new CartItem(data.content[i]));
+        this.total+=data.content[i].Price;
       }
     });
   }
@@ -47,6 +50,14 @@ export class CartComponent implements OnInit {
     return this.testService.emptyCart(sessionStorage.getItem('userName')).subscribe(data => {
       this.router.navigate(["/products"])
     });
+  }
+
+  getTotalPrice(){
+    return Math.round((this.total + Number.EPSILON) * 100) / 100;
+  }
+
+  getCartCount(){
+    return this.cart.length;
   }
 
 }

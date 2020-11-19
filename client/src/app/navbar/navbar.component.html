@@ -20,23 +20,10 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
                 <!--Redirect to Login/Signup if no session-->
-                <a [routerLink]="'/cart'" >
+                <button class="btn btn-link" (click)="accessCart()" >
                     <img alt="Cart" src="../../assets/Cart.png" width="auto" height="28px"
-                        style="margin-top:5px; margin-right:17px">
-                </a>
-            </li>
-            <li class="nav-item active">
-                <!--Make the search bar appear-->
-                <a (click)="toggleSearch()">
-                    <img alt="Search" src="../../assets/Search.png" width="auto" height="27px"
-                        style="margin-top:5px; margin-right:37px">
-                </a>
-            </li>
-            <li>
-                <form *ngIf="searchOn" class="form-inline mt-2 mt-md-0" style="padding-right:20px;">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Enter tag(s)..." aria-label="Search">
-                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                        style="margin-bottom:4px; margin-right:5px">
+                </button>
             </li>
             <li class="nav-item" *ngIf="signedIn()">
                 <a class="nav-link active" [routerLink]="'/profile'">Welcome, {{getUserName()}}!</a>
