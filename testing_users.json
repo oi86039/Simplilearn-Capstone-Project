@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "5faac074ce7d1146fc0af8f6"
+  },
+  "userType": "user",
+  "userName": "user123",
+  "password": "user123",
+  "email": "help@me.com",
+  "phone": 1234567899,
+  "shippingAddress": "123 Street Street",
+  "shippingCity": "New York City",
+  "shippingZip": 12345,
+  "shippingCountry": "United States",
+  "billingAddress": "123 Street Street",
+  "billingCity": "New York City",
+  "billingZip": 12345,
+  "billingCountry": "United States",
+  "balance": 0.69,
+  "cart": [],
+  "Purchase History": [],
+  "Viewing History": [],
+  "shippingState": "New York",
+  "billingState": "New York"
+},{
+  "_id": {
+    "$oid": "5faac0c0ce7d1146fc0af8f7"
+  },
+  "userType": "admin",
+  "userName": "admin123",
+  "password": "admin123"
+},{
+  "_id": {
+    "$oid": "5fac082ba047172068e48909"
+  },
+  "userType": "user",
+  "userName": "omar123",
+  "password": "omar123",
+  "email": "help@me.com",
+  "phone": 1234567899,
+  "shippingAddress": "123 ave Street",
+  "shippingCity": "New York City",
+  "shippingZip": 12345,
+  "shippingCountry": "United States",
+  "billingAddress": "123 Street Street",
+  "billingCity": "New York City",
+  "billingZip": 12345,
+  "billingCountry": "United States",
+  "balance": 0.69,
+  "cart": [],
+  "Purchase History": [],
+  "Viewing History": [],
+  "billingState": "New York",
+  "shippingState": "New York"
+},{
+  "_id": {
+    "$oid": "5fac40771f004a54500bbe46"
+  },
+  "userType": "user",
+  "userName": "o",
+  "password": "o",
+  "email": "o@o.com",
+  "phone": 1231231233,
+  "shippingAddress": "asd",
+  "shippingState": "asdasd",
+  "shippingZip": 12312,
+  "shippingCountry": "asdalkj",
+  "billingAddress": "asd",
+  "billingCity": "asd",
+  "billingState": "asdasd",
+  "billingZip": 12312,
+  "billingCountry": "asdalkj",
+  "balance": 0,
+  "cart": [],
+  "Purchase History": [],
+  "Viewing History": [],
+  "shippingCity": "asd"
+}]
