@@ -3,10 +3,10 @@
 <div class="container">
     Test Connection:
     <button (click)="testConnection()">Press</button>
-    <p>{{getTestConnection()}}</p>
+    <p>Status: {{getTestConnection()}}</p>
     <!--<a [routerLink]="['/products', productId]"></a>   For parameters-->
-    Create Account
-    <input type="text" class="form-control" [(ngModel)]="__id" placeholder="__id (For updating instead of creating)">
+    Create/Update/Delete Product
+    <input type="text" class="form-control" [(ngModel)]="__id" placeholder="__id (Specify to update/delete an existing product)">
     <input type="text" class="form-control" [(ngModel)]="itemName" placeholder="itemName">
     <input type="text" class="form-control" [(ngModel)]="imageURLs" placeholder="imageURLs">
     <input type="number" class="form-control" [(ngModel)]="Price" placeholder="Price">
@@ -19,34 +19,44 @@
     <button (click)="admin_createProduct()">Create Product</button>
     <button (click)="admin_updateProduct()">Update Product</button>
     <button (click)="admin_deleteProduct()">Delete Product</button>
-    <p>{{getConfirmation()}}</p>
+    <p>Create/Update/Delete Status: {{getConfirmation()}}</p>
 
     <!--View All Products-->
-    <button (click)="viewAllProducts()">View All Products</button>
-    <button (click)="viewCart()">View Cart (must be logged in)</button>
+    Retrieve Products
+    <button (click)="viewAllProducts()">View All Products</button><br>
+    Retrieve Cart
+    <button (click)="viewCart()">View Cart (must be logged in)</button><br><br>
 
     <!--Find by name-->
+    Find Product by Name (case-insensitive)
     <input type="text" class="form-control" [(ngModel)]="_name" placeholder="_name">
-    <button (click)="findProductsByName()">Find Products By Name</button>
+    <button (click)="findProductsByName()">Find Products By Name</button><br><br>
 
+    Find Product by Id / Add Product to Cart by Id(must be exact)
     <!--Find by _id-->
     <input type="text" class="form-control" [(ngModel)]="_id" placeholder="_id">
     <button (click)="findProductsById()">Find Products By Id</button>
     <button (click)="addToCart()">Add to Cart (must be logged in)</button>
-    <button (click)="emptyCart()">Empty Cart (must be logged in)</button>
+    <br><br>
 
     <!--Find by _tags-->
+    Find Products by Tag (case-insensitive)
     <input type="text" class="form-control" [(ngModel)]="_tag" placeholder="_tag">
-    <button (click)="findProductsByTags()">Find Products By Tag</button>
+    <button (click)="findProductsByTags()">Find Products By Tag</button><br><br>
 
+    Empty the entire cart<br>
+     <button (click)="emptyCart()">Empty Cart (must be logged in)</button><br><br>
+
+     Login/Sign Up
     <input type="text" class="form-control" [(ngModel)]="_userName" placeholder="_userName">
     <input type="text" class="form-control" [(ngModel)]="_password" placeholder="_password">
     <input type="text" class="form-control" [(ngModel)]="_email" placeholder="_email">
     <input type="text" class="form-control" [(ngModel)]="_phone" placeholder="_phone">
 
     <button (click)="login()">Log in</button>
-    <button (click)="createUser()">Sign up</button>
+    <button (click)="createUser()">Sign up</button><br><br>
 
+    Item Display
     <!--Item display-->
     <hr class="mb-4">
     <div *ngFor="let item of getItemsArray()">
@@ -71,8 +81,9 @@
             <p>Description: {{review.getDescription()}}</p>
         </div>
         <hr class="mb-4">
-    </div>
+    </div><br><br>
     <!--Cart display-->
+    Cart Display
     <hr class="mb-4">
     <div *ngFor="let item of getCartArray()">
         <p>_id: {{item.get_id()}}</p>

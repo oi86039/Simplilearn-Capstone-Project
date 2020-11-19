@@ -56,7 +56,7 @@ export class TestComponent implements OnInit {
     return this.testService.testConnection().subscribe(data => this.TestConnection.construct(data));
   }
   getTestConnection() {
-    return this.TestConnection.get_id() + " : " + this.TestConnection.getContent();
+    return this.TestConnection.getContent();
   }
   getConfirmation() {
     return this.Confirmation.getToken() + " : " + this.Confirmation.getMsg();
